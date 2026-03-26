@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fluentia</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+
+    <!-- ══════════════════════════════════
+     SCREEN 1 — MIX & MATCH
+    ══════════════════════════════════ -->
+
+    <div id="screen-1">
+      <div class="lesson-card" id="card-match">
+        <div class="top-bar">
+          <button class="btn-back" title="Go back">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path
+                d="M10 3L5 8l5 5"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+
+          <div class="progress-wrap">
+            <span class="progress-label">0%</span>
+            <div class="progress-track">
+              <div
+                class="progress-fill"
+                id="match-progress"
+                style="width: 0%"
+              ></div>
+            </div>
+            <span class="progress-label">100%</span>
+          </div>
+
+          <button class="btn-menu" title="Menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+
+        <div class="lesson-body">
+          <div class="topic-tag">✈️ Travel</div>
+          <div class="activity-type">
+            Mix &amp; Match the vocabulary
+          </div>
+
+          <div class="score-chip" id="match-score">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <path
+                d="M6.5 1L8.1 4.6l3.9.4-2.8 2.6.8 3.8L6.5 9.4l-3.5 2 .8-3.8L1 5l3.9-.4L6.5 1z"
+                fill="currentColor"
+              />
+            </svg>
+            0 / 5 pairs matched
+          </div>
+
+          <p class="row-label">Words</p>
+          <div class="match-grid" id="words-row"></div>
+
+          <p class="row-label">Translations</p>
+          <div class="match-grid" id="trans-row"></div>
+
+          <div class="feedback" id="match-feedback"></div>
+
+          <button class="btn-continue" id="match-btn" disabled>
+            Check Matches
+          </button>
+
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ══════════════════════════════════
+     SCREEN 2 — READING COMPREHENSION
+    ══════════════════════════════════ -->
+
+    <div id="screen-2" style="display:none;">
+
+      <div class="lesson-card" id="reading-card">
+
+        <div class="top-bar">
+          <button class="btn-back" title="Go back">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path
+                d="M10 3L5 8l5 5"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+
+          <div class="progress-wrap">
+            <span class="progress-label">0%</span>
+            <div class="progress-track">
+              <div
+                class="progress-fill"
+                id="read-progress"
+                style="width: 0%"
+              ></div>
+            </div>
+            <span class="progress-label">100%</span>
+          </div>
+
+          <button class="btn-menu" title="Menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+
+        <div class="lesson-body">
+
+          <div class="topic-tag">✈️ Travel</div>
+          <div class="activity-type">Reading Comprehension</div>
+
+          <div class="passage-box" id="passage-text"></div>
+
+          <p class="question-label">
+            Question <span id="q-num">1</span> of
+            <span id="q-total">3</span>
+          </p>
+
+          <p class="question-text" id="question-text"></p>
+
+          <div class="answer-grid" id="answer-grid"></div>
+
+          <div class="feedback" id="read-feedback"></div>
+
+          <button class="btn-continue" id="read-btn" disabled>
+            Confirm Answer
+          </button>
+
+        </div>
+      </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+  </body>
+</html>
