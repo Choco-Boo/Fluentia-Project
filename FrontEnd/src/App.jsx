@@ -13,7 +13,6 @@ function App() {
       <LandingPage
         goToLogin={() => setPage('login')}
         goToSignup={() => setPage('signup')}
-        goToOnboarding={() => setPage('onboarding')}
       />
     );
   }
@@ -38,9 +37,8 @@ function App() {
 
   return (
     <LoginPage
-      goToLanding={() => setPage('landing')}
       goToSignup={() => setPage('signup')}
-      goToOnboarding={() => setPage('onboarding')}
+      goToDashboard={() => setPage('dashboard')}
     />
   );
 }

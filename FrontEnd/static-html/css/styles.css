@@ -945,6 +945,22 @@ input:focus {
   color: #3868ff;
 }
 
+.fd-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.fd-link {
+  text-decoration: none;
+  color: #24324a;
+  font-weight: 700;
+}
+
+.fd-link:hover {
+  color: #3868ff;
+}
+
 .fd-cta-small {
   text-decoration: none;
   color: #f8f8fc;
