@@ -21,50 +21,37 @@
         <div class="top-bar">
           <button class="btn-back" title="Go back" type="button">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path
-                d="M10 3L5 8l5 5"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+              <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
 
           <div class="progress-wrap">
             <span class="progress-label">0%</span>
             <div class="progress-track">
-              <div
-                class="progress-fill"
-                id="match-progress"
-                style="width: 0%"
-              ></div>
+              <div class="progress-fill" id="match-progress" style="width: 0%"></div>
             </div>
             <span class="progress-label">100%</span>
           </div>
 
-          <button class="btn-menu" title="Menu" type="button">
-            <span></span><span></span><span></span>
-          </button>
+          <div class="level-badge" id="match-level-badge">Beginner</div>
         </div>
 
         <div class="lesson-body">
           <div class="topic-tag">✈️ Travel</div>
-          <div class="activity-type">Mix &amp; Match the vocabulary</div>
+          <div class="activity-type" id="match-activity-type">Mix &amp; Match the vocabulary</div>
+          <div class="activity-meta" id="match-meta"></div>
 
           <div class="score-chip" id="match-score">⭐ 0 / 5 pairs matched</div>
 
-          <p class="row-label">Words</p>
+          <p class="row-label" id="left-row-label">Words</p>
           <div class="match-grid" id="words-row"></div>
 
-          <p class="row-label">Translations</p>
+          <p class="row-label" id="right-row-label">Matches</p>
           <div class="match-grid" id="trans-row"></div>
 
           <div class="feedback" id="match-feedback"></div>
 
-          <button class="btn-continue" id="match-btn" disabled type="button">
-            Check Matches
-          </button>
+          <button class="btn-continue" id="match-btn" disabled type="button">Check Matches</button>
         </div>
       </div>
     </div>
@@ -75,42 +62,30 @@
         <div class="top-bar">
           <button class="btn-back" title="Go back" type="button">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path
-                d="M10 3L5 8l5 5"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
+              <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
 
           <div class="progress-wrap">
             <span class="progress-label">0%</span>
             <div class="progress-track">
-              <div
-                class="progress-fill"
-                id="read-progress"
-                style="width: 0%"
-              ></div>
+              <div class="progress-fill" id="read-progress" style="width: 0%"></div>
             </div>
             <span class="progress-label">100%</span>
           </div>
 
-          <button class="btn-menu" title="Menu" type="button">
-            <span></span><span></span><span></span>
-          </button>
+          <div class="level-badge" id="read-level-badge">Beginner</div>
         </div>
 
         <div class="lesson-body">
           <div class="topic-tag">✈️ Travel</div>
-          <div class="activity-type">Reading Comprehension</div>
+          <div class="activity-type" id="reading-activity-type">Reading Comprehension</div>
+          <div class="activity-meta" id="reading-meta"></div>
 
           <div class="passage-box" id="passage-text"></div>
 
           <p class="question-label">
-            Question <span id="q-num">1</span> of
-            <span id="q-total">3</span>
+            Question <span id="q-num">1</span> of <span id="q-total">3</span>
           </p>
 
           <p class="question-text" id="question-text"></p>
@@ -119,9 +94,7 @@
 
           <div class="feedback" id="read-feedback"></div>
 
-          <button class="btn-continue" id="read-btn" disabled type="button">
-            Confirm Answer
-          </button>
+          <button class="btn-continue" id="read-btn" disabled type="button">Confirm Answer</button>
         </div>
       </div>
     </div>
@@ -133,33 +106,35 @@
           <div class="progress-wrap">
             <span class="progress-label">0%</span>
             <div class="progress-track">
-              <div
-                class="progress-fill"
-                id="sentence-progress"
-                style="width: 0%"
-              ></div>
+              <div class="progress-fill" id="sentence-progress" style="width: 0%"></div>
             </div>
             <span class="progress-label">100%</span>
           </div>
+          <div class="level-badge" id="sentence-level-badge">Beginner</div>
         </div>
 
         <div class="lesson-body">
           <div class="topic-tag">✈️ Travel</div>
-          <div class="activity-type">Build the Sentence</div>
+          <div class="activity-type" id="sentence-activity-type">Build the Sentence</div>
+          <div class="activity-meta" id="sentence-meta"></div>
 
           <p class="question-text" id="sentence-question"></p>
 
-          <p class="row-label">Word Bank</p>
-          <div class="sentence-words" id="sentence-words"></div>
+          <div id="sentence-builder-area">
+            <p class="row-label">Word Bank</p>
+            <div class="sentence-words" id="sentence-words"></div>
+            <p class="row-label">Your Sentence</p>
+            <div class="sentence-drop" id="sentence-drop"></div>
+          </div>
 
-          <p class="row-label">Your Sentence</p>
-          <div class="sentence-drop" id="sentence-drop"></div>
+          <div id="sentence-fill-area" style="display: none">
+            <p class="question-text" id="fill-sentence-text"></p>
+            <div class="answer-grid" id="fill-options"></div>
+          </div>
 
           <div class="feedback" id="sentence-feedback"></div>
 
-          <button class="btn-continue" id="sentence-btn" type="button">
-            Check Sentence
-          </button>
+          <button class="btn-continue" id="sentence-btn" type="button">Check Sentence</button>
         </div>
       </div>
     </div>
@@ -167,24 +142,29 @@
     <!-- SCREEN 4 — ROLE PLAY -->
     <div id="screen-4" class="screen" style="display: none">
       <div class="lesson-card">
+        <div class="top-bar">
+          <div class="progress-wrap">
+            <span class="progress-label">0%</span>
+            <div class="progress-track">
+              <div class="progress-fill" id="role-progress" style="width: 0%"></div>
+            </div>
+            <span class="progress-label">100%</span>
+          </div>
+          <div class="level-badge" id="role-level-badge">Beginner</div>
+        </div>
+
         <div class="lesson-body">
           <div class="topic-tag">✈️ Travel</div>
-          <div class="activity-type">Role Play Conversation</div>
+          <div class="activity-type" id="role-activity-type">Role Play Conversation</div>
+          <div class="activity-meta" id="role-meta"></div>
 
           <p class="question-text" id="role-text"></p>
 
-          <input
-            type="text"
-            id="role-input"
-            placeholder="Type your response..."
-            class="role-input"
-          />
+          <input type="text" id="role-input" placeholder="Type your response..." class="role-input" />
 
           <div class="feedback" id="role-feedback"></div>
 
-          <button class="btn-continue" id="role-btn" type="button">
-            Submit
-          </button>
+          <button class="btn-continue" id="role-btn" type="button">Submit</button>
         </div>
       </div>
     </div>
@@ -192,16 +172,32 @@
     <!-- SCREEN 5 — PRONUNCIATION -->
     <div id="screen-5" class="screen" style="display: none">
       <div class="lesson-card">
+        <div class="top-bar">
+          <div class="progress-wrap">
+            <span class="progress-label">0%</span>
+            <div class="progress-track">
+              <div class="progress-fill" id="speech-progress" style="width: 0%"></div>
+            </div>
+            <span class="progress-label">100%</span>
+          </div>
+          <div class="level-badge" id="speech-level-badge">Beginner</div>
+        </div>
+
         <div class="lesson-body">
           <div class="topic-tag">🎤 Pronunciation</div>
+          <div class="activity-meta" id="speech-meta"></div>
 
-          <p class="question-text" id="speak-text">
-            Say: "Necesito un taxi al hotel"
-          </p>
+          <p class="question-text" id="speak-text">Say: "Necesito un taxi al hotel"</p>
 
-          <button class="btn-continue" id="start-record" type="button">
-            Start Speaking
-          </button>
+          <div class="microphone-status" id="mic-status">
+            <span class="mic-indicator"></span>
+            <span class="mic-label">Microphone: Off</span>
+          </div>
+
+          <div class="button-group">
+            <button class="btn-continue" id="start-record" type="button">Start Speaking</button>
+            <button class="btn-skip" id="skip-speech" type="button">Skip Activity</button>
+          </div>
 
           <div class="feedback" id="speech-result"></div>
         </div>
