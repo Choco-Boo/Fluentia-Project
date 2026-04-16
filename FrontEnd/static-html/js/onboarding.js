@@ -11,12 +11,12 @@
       subtitle: 'Please select as many options as you like, you can always change these later.',
       type: 'multi',
       options: [
-        { title: 'Traveling', description: 'Speak confidently while traveling abroad', icon: 'TR' },
-        { title: 'Work / Business', description: 'Use language in meetings and emails', icon: 'WK' },
-        { title: 'School', description: 'Improve grades and class participation', icon: 'SC' },
-        { title: 'Friends & Family', description: 'Communicate in daily personal conversations', icon: 'FF' },
-        { title: 'Culture / Media', description: 'Enjoy movies, music, and articles', icon: 'CM' },
-        { title: 'Just for fun', description: 'Learn casually and stay mentally active', icon: 'FN' }
+        { title: 'Traveling', description: 'Handle airport, transport, and hotel conversations confidently.', icon: 'TR' },
+        { title: 'Work / Business', description: 'Use better English or Spanish in meetings, updates, and emails.', icon: 'WK' },
+        { title: 'School', description: 'Improve your English for class presentations, writing, and exams.', icon: 'SC' },
+        { title: 'Friends & Family', description: 'Communicate naturally in day-to-day personal conversations.', icon: 'FF' },
+        { title: 'Culture / Media', description: 'Understand movies, shows, podcasts, and social content better.', icon: 'CM' },
+        { title: 'Just for fun', description: 'Learn casually and keep your brain active with practical practice.', icon: 'FN' }
       ]
     },
     {
@@ -43,6 +43,18 @@
         { title: 'Intermediate', description: 'I can hold simple conversations', icon: 'B1' },
         { title: 'Advanced', description: 'I can communicate with confidence', icon: 'C1' },
         { title: 'Not sure', description: 'Help me find my level', icon: '?' }
+      ]
+    },
+    {
+      key: 'language',
+      title: 'Which language do you want to learn first?',
+      subtitle: 'Choose your target language. You can add another language later.',
+      type: 'single',
+      options: [
+        { title: 'English', description: 'Global communication for work, school, and travel.', icon: 'EN' },
+        { title: 'Spanish', description: 'Practical for travel, business, and daily conversation.', icon: 'ES' },
+        { title: 'Portuguese', description: 'Useful for Brazil, Portugal, and global communities.', icon: 'PT' },
+        { title: 'French', description: 'Build confidence for academics, travel, and culture.', icon: 'FR' }
       ]
     },
     {
@@ -82,6 +94,7 @@
       goals: [],
       ageRange: '',
       level: '',
+      language: '',
       studyTime: '',
       focusSkills: []
     }
@@ -149,12 +162,13 @@
       '      <p><strong>Goals:</strong> ' + state.formData.goals.join(', ') + '</p>' +
       '      <p><strong>Age:</strong> ' + state.formData.ageRange + '</p>' +
       '      <p><strong>Level:</strong> ' + state.formData.level + '</p>' +
+      '      <p><strong>Language:</strong> ' + state.formData.language + '</p>' +
       '      <p><strong>Study time:</strong> ' + state.formData.studyTime + '</p>' +
       '      <p><strong>Focus skills:</strong> ' + state.formData.focusSkills.join(', ') + '</p>' +
       '    </div>' +
       '    <div class="nav-buttons">' +
       '      <button type="button" class="back-btn" id="summary-back">Back</button>' +
-      '      <button type="button" class="continue-btn" id="to-dashboard">Go to dashboard</button>' +
+      '      <button type="button" class="continue-btn" id="to-landing">Go to landing page</button>' +
       '    </div>' +
       '  </div>' +
       '</div>';
@@ -164,8 +178,8 @@
       render();
     });
 
-    document.getElementById('to-dashboard').addEventListener('click', function () {
-      window.location.href = 'dashboard.html';
+    document.getElementById('to-landing').addEventListener('click', function () {
+      window.location.href = 'landing.html';
     });
   }
 

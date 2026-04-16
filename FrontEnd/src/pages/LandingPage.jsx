@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-function LandingPage({ goToLogin, goToSignup, goToOnboarding }) {
+function LandingPage({ goToLogin, goToSignup }) {
   useEffect(() => {
     document.body.className = 'fd-body';
 
@@ -41,10 +41,12 @@ function LandingPage({ goToLogin, goToSignup, goToOnboarding }) {
             practice that fits your schedule.
           </p>
           <div className="fd-hero-actions">
-            <a className="fd-btn-dark" href="/onboarding" onClick={(event) => handleAuth(event, goToOnboarding)}>
-              Build my plan
+            <a className="fd-btn-dark" href="/signup" onClick={(event) => handleAuth(event, goToSignup)}>
+              Create account and build my plan
             </a>
-            <span className="fd-scroll">Placement + onboarding in minutes</span>
+            <a className="fd-link" href="/login" onClick={(event) => handleAuth(event, goToLogin)}>
+              Already have an account? Sign in
+            </a>
           </div>
         </div>
 
@@ -148,10 +150,10 @@ function LandingPage({ goToLogin, goToSignup, goToOnboarding }) {
           <p>AI-powered language learning for real conversations.</p>
         </div>
         <div className="fd-footer-links">
-          <a href="#">About</a>
-          <a href="#">Pricing</a>
-          <a href="#">Blog</a>
-          <a href="#">Support</a>
+          <a href="#why">About</a>
+          <a href="#courses">Courses</a>
+          <a href="/signup" onClick={(event) => handleAuth(event, goToSignup)}>Sign Up</a>
+          <a href="/login" onClick={(event) => handleAuth(event, goToLogin)}>Log In</a>
         </div>
       </footer>
     </div>

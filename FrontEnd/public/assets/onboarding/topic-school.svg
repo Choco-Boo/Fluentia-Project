@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80" viewBox="0 0 120 80" role="img" aria-label="School">
+  <defs>
+    <linearGradient id="g3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c6b6ff"/>
+      <stop offset="1" stop-color="#8ec5ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="80" rx="14" fill="url(#g3)"/>
+  <path d="M60 21l35 14-35 14-35-14 35-14z" fill="#ffffff" fill-opacity="0.95"/>
+  <path d="M60 35l26 10v8L60 63 34 53v-8l26-10z" fill="#3730a3" fill-opacity="0.92"/>
+</svg>
