@@ -16,25 +16,31 @@ export const mockDashboardData = {
   },
   lessons: {
     contentTypes: [
-      { id: 'exercises', title: 'Exercises', detail: 'Targeted drills for daily practice.', icon: '✍', cta: 'Open' },
-      { id: 'quizzes', title: 'Quizzes', detail: 'Quick checks to validate retention.', icon: '🧠', cta: 'Start' },
-      { id: 'exams', title: 'Exams', detail: 'Milestone tests for level progress.', icon: '📝', cta: 'Take' },
-      { id: 'lectures', title: 'Lectures', detail: 'Guided lesson explainers.', icon: '🎧', cta: 'Watch' }
+      { id: 'exercises', title: 'Exercises', detail: 'Targeted drills for daily practice.', icon: '✍', cta: 'Open', image: '/assets/onboarding/topic-school.svg' },
+      { id: 'quizzes', title: 'Quizzes', detail: 'Quick checks to validate retention.', icon: '🧠', cta: 'Start', image: '/assets/onboarding/topic-fun.svg' },
+      { id: 'exams', title: 'Exams', detail: 'Milestone tests for level progress.', icon: '📝', cta: 'Take', image: '/assets/onboarding/topic-work.svg' },
+      { id: 'lectures', title: 'Lectures', detail: 'Guided lesson explainers.', icon: '🎧', cta: 'Watch', image: '/assets/onboarding/topic-culture.svg' }
     ],
     current: [
-      { id: 'l1', title: 'Travel Dialogues: Airport Check-in', type: 'Speaking', progressPercent: 68 },
-      { id: 'l2', title: 'Work Updates: Present Simple vs Past', type: 'Grammar', progressPercent: 54 },
-      { id: 'l3', title: 'Kitchen Vocabulary Objects 1', type: 'Vocabulary', progressPercent: 43 }
+      { id: 'l1', title: 'Travel Dialogues: Airport Check-in', type: 'Speaking', progressPercent: 68, image: '/assets/onboarding/topic-travel.svg' },
+      { id: 'l2', title: 'Work Updates: Present Simple vs Past', type: 'Grammar', progressPercent: 54, image: '/assets/onboarding/topic-work.svg' },
+      { id: 'l3', title: 'Kitchen Vocabulary Objects 1', type: 'Vocabulary', progressPercent: 43, image: '/assets/onboarding/topic-family.svg' }
     ],
     recommended: [
-      { id: 'r1', title: 'Quiz of the Day', detail: '12-question challenge on recent topics.' },
-      { id: 'r2', title: 'Vocabulary Practice', detail: 'Review 20 high-frequency work phrases.' },
-      { id: 'r3', title: 'Speaking Practice', detail: '5-minute AI role-play for meetings.' }
+      { id: 'r1', title: 'Quiz of the Day', detail: '12-question challenge on recent topics.', image: '/assets/onboarding/topic-fun.svg' },
+      { id: 'r2', title: 'Vocabulary Practice', detail: 'Review 20 high-frequency work phrases.', image: '/assets/onboarding/topic-school.svg' },
+      { id: 'r3', title: 'Speaking Practice', detail: '5-minute AI role-play for meetings.', image: '/assets/onboarding/topic-culture.svg' }
     ],
     featuredPath: {
       id: 'fp1',
       title: 'Practical Conversations A2',
       resumeLabel: 'Resume lesson'
+    },
+    activeModule: {
+      id: 'm1',
+      title: 'Practical Conversations A2',
+      totalLessons: 12,
+      completedLessons: 8
     }
   },
   progress: {

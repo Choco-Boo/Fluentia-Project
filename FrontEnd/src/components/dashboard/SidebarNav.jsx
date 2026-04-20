@@ -1,9 +1,10 @@
 function SidebarNav({ userName, section, setSection, onLogout }) {
   const items = [
-    { id: 'dashboard', label: 'Dashboard' },
-    { id: 'lessons', label: 'Lessons' },
-    { id: 'achievements', label: 'Achievements' },
-    { id: 'settings', label: 'Settings' }
+    { id: 'dashboard', label: 'Dashboard', icon: '🏠' },
+    { id: 'lessons', label: 'Lessons', icon: '📚' },
+    { id: 'achievements', label: 'Achievements', icon: '🏆' },
+    { id: 'ai-conversations', label: 'AI Conversations', icon: '💬' },
+    { id: 'settings', label: 'Settings', icon: '⚙️' }
   ];
 
   return (
@@ -18,7 +19,8 @@ function SidebarNav({ userName, section, setSection, onLogout }) {
             className={section === item.id ? 'active' : ''}
             onClick={() => setSection(item.id)}
           >
-            {item.label}
+            <span className="fd-pro-nav-icon" aria-hidden="true">{item.icon}</span>
+            <span>{item.label}</span>
           </button>
         ))}
       </nav>

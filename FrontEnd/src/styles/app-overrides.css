@@ -2028,6 +2028,14 @@ a:focus-visible {
   padding: 0 12px;
   font-weight: 700;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fd-pro-nav-icon {
+  width: 18px;
+  text-align: center;
 }
 
 .fd-pro-nav button.active {
@@ -2255,6 +2263,21 @@ a:focus-visible {
   min-height: 170px;
 }
 
+.fd-pro-type-image-wrap {
+  height: 82px;
+  border-radius: 10px;
+  border: 1px solid #dde7f8;
+  background: #ffffff;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.fd-pro-type-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .fd-pro-type-card span {
   font-size: 22px;
 }
@@ -2293,6 +2316,23 @@ a:focus-visible {
   border: 1px solid #e0e8f8;
   background: #f9fbff;
   padding: 12px;
+}
+
+.fd-pro-card-image-wrap,
+.fd-pro-recommend-image-wrap {
+  height: 84px;
+  border-radius: 10px;
+  border: 1px solid #dde7f8;
+  background: #ffffff;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.fd-pro-card-image,
+.fd-pro-recommend-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .fd-pro-current-card p {
@@ -2590,7 +2630,7 @@ a:focus-visible {
   }
 
   .fd-pro-nav {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     width: 100%;
   }
 
@@ -2873,4 +2913,1902 @@ a:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Achievements page redesign */
+.fd-achievements-page {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+  font-family: 'Inter', 'Outfit', 'Segoe UI', sans-serif;
+}
+
+.fd-achievements-head h2 {
+  margin: 0;
+  color: #111827;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.fd-achievements-overview {
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  background: #fbfcff;
+  padding: 16px;
+  margin-bottom: 14px;
+}
+
+.fd-achievements-overview-chips {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.fd-achievements-overview-chips .chip {
+  height: 30px;
+  border-radius: 999px;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+
+.fd-achievements-overview-chips .chip.level {
+  background: #f0ecff;
+  color: #5745c9;
+  border-color: #d9d0ff;
+}
+
+.fd-achievements-overview-chips .chip.xp {
+  background: #fff7e9;
+  color: #a96b00;
+  border-color: #f5dfb2;
+}
+
+.fd-achievements-overview-chips .chip.streak {
+  background: #ecfbf1;
+  color: #12763f;
+  border-color: #c9efd8;
+}
+
+.fd-achievements-overview h3 {
+  margin: 0;
+  color: #1f2f52;
+  font-size: 30px;
+  letter-spacing: -0.02em;
+}
+
+.fd-achievements-overview > p {
+  margin: 4px 0 0;
+  color: #647891;
+  font-weight: 600;
+}
+
+.fd-achievements-week-strip {
+  margin-top: 12px;
+  border: 1px solid #e4e9f5;
+  border-radius: 14px;
+  background: #f5f8ff;
+  min-height: 164px;
+  padding: 10px 12px;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.fd-achievements-day-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}
+
+.fd-achievements-day-col span {
+  width: min(26px, 70%);
+  border-radius: 999px;
+  min-height: 8px;
+  background: linear-gradient(120deg, #6c63ff, #4f46e5);
+  box-shadow: 0 8px 16px rgba(79, 70, 229, 0.18);
+}
+
+.fd-achievements-day-col small {
+  color: #5c7298;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.fd-achievements-overview-cards {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.fd-achievements-overview-cards article {
+  border: 1px solid #e3e9f6;
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 12px;
+}
+
+.fd-achievements-overview-cards strong {
+  display: block;
+  font-size: clamp(24px, 2.3vw, 32px);
+  line-height: 1.04;
+  color: #1f2f52;
+  letter-spacing: -0.02em;
+}
+
+.fd-achievements-overview-cards p {
+  margin: 6px 0 0;
+  color: #647891;
+  font-weight: 700;
+}
+
+.fd-achievements-progress-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.fd-achievements-progress-card {
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  padding: 14px;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.04);
+}
+
+.fd-achievements-progress-label {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b7280;
+}
+
+.fd-achievements-progress-card h3 {
+  margin: 8px 0 2px;
+  font-size: clamp(20px, 2.2vw, 28px);
+  line-height: 1.1;
+  color: #111827;
+}
+
+.fd-achievements-progress-card p {
+  margin: 0;
+  color: #5f7397;
+  font-weight: 600;
+}
+
+.fd-achievements-progress-bar {
+  margin-top: 10px;
+  height: 9px;
+  border-radius: 999px;
+  background: #e7ebf4;
+  overflow: hidden;
+}
+
+.fd-achievements-progress-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(120deg, #6c63ff, #4f46e5);
+}
+
+.fd-achievements-progress-card small {
+  display: block;
+  margin-top: 8px;
+  color: #6b7280;
+  font-weight: 700;
+}
+
+.fd-achievements-list-head {
+  margin-top: 2px;
+}
+
+.fd-achievements-filters {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fd-achievements-filters button {
+  height: 30px;
+  border-radius: 999px;
+  border: 1px solid #d9e2f7;
+  background: #f8fbff;
+  color: #425b92;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.fd-achievements-filters button.active {
+  background: linear-gradient(120deg, #6c63ff, #4f46e5);
+  border-color: transparent;
+  color: #ffffff;
+}
+
+.fd-achievements-list-head h3 {
+  margin: 0;
+  color: #1f2f52;
+  font-size: 18px;
+}
+
+.fd-achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.fd-achievement-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.05);
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  align-items: start;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.fd-achievement-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(79, 70, 229, 0.14);
+  border-color: #c7d2fe;
+}
+
+.fd-achievement-card.is-selected {
+  border-color: #6c63ff;
+  box-shadow: 0 12px 24px rgba(108, 99, 255, 0.2);
+}
+
+.fd-achievement-card.is-completed {
+  border-color: rgba(108, 99, 255, 0.38);
+  box-shadow: 0 10px 20px rgba(108, 99, 255, 0.12);
+}
+
+.fd-achievement-card.is-locked {
+  opacity: 0.64;
+}
+
+.fd-achievement-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.fd-achievement-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(79, 70, 229, 0.1);
+  color: #4f46e5;
+  font-size: 20px;
+}
+
+.fd-achievement-state {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+}
+
+.fd-achievement-state.is-completed {
+  color: #6c63ff;
+  border-color: rgba(108, 99, 255, 0.32);
+  background: rgba(108, 99, 255, 0.08);
+}
+
+.fd-achievement-state.is-locked {
+  color: #6b7280;
+  background: #f9fafb;
+}
+
+.fd-achievement-card h3 {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.35;
+  color: #111827;
+  font-weight: 700;
+}
+
+.fd-achievement-card p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.fd-achievements-detail {
+  margin-top: 14px;
+  border: 1px solid #e1e9f7;
+  border-radius: 14px;
+  background: #f8fbff;
+  padding: 12px;
+}
+
+.fd-achievements-detail .label {
+  margin: 0;
+  color: #60779d;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.fd-achievements-detail h4 {
+  margin: 6px 0 0;
+  color: #1f2f52;
+  font-size: 22px;
+}
+
+.fd-achievements-detail p {
+  margin: 6px 0 0;
+  color: #5e7398;
+  font-weight: 600;
+}
+
+@media (max-width: 1200px) {
+  .fd-achievements-overview-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .fd-achievements-progress-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fd-achievements-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .fd-achievements-week-strip {
+    min-height: 140px;
+  }
+
+  .fd-achievements-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .fd-achievements-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* AI Conversations page */
+.fd-ai-page {
+  background: #ffffff;
+}
+
+.fd-ai-head {
+  margin-bottom: 14px;
+}
+
+.fd-ai-head h2 {
+  margin: 0;
+  color: #1c2849;
+}
+
+.fd-ai-head p {
+  margin: 4px 0 0;
+  color: #5d7398;
+  font-weight: 600;
+}
+
+.fd-ai-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.fd-ai-panel {
+  border: 1px solid #e2e9f7;
+  border-radius: 14px;
+  background: #f9fbff;
+  padding: 14px;
+  min-height: 330px;
+}
+
+.fd-ai-panel-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.fd-ai-panel-head h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #223464;
+}
+
+.fd-ai-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: #eef2ff;
+  color: #4f46e5;
+  font-size: 18px;
+}
+
+.fd-ai-status {
+  margin: 0 0 12px;
+  color: #4b628d;
+  font-weight: 700;
+}
+
+.fd-ai-primary-btn {
+  height: 38px;
+  border: none;
+  border-radius: 999px;
+  padding: 0 16px;
+  font-weight: 700;
+  color: #ffffff;
+  background: linear-gradient(120deg, #6c63ff, #4f46e5);
+  cursor: pointer;
+}
+
+.fd-ai-response-box {
+  margin-top: 14px;
+  border: 1px solid #dfe7f8;
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 12px;
+}
+
+.fd-ai-response-box strong {
+  color: #273b73;
+}
+
+.fd-ai-response-box p {
+  margin: 8px 0 0;
+  color: #5d7398;
+}
+
+.fd-ai-chat-stream {
+  border: 1px solid #e2e9f7;
+  border-radius: 12px;
+  background: #ffffff;
+  min-height: 170px;
+  max-height: 230px;
+  overflow: auto;
+  padding: 10px;
+  display: grid;
+  gap: 8px;
+}
+
+.fd-ai-chat-bubble {
+  max-width: 92%;
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.fd-ai-chat-bubble.is-ai {
+  background: #eef2ff;
+  color: #374c87;
+  border: 1px solid #dfe7ff;
+}
+
+.fd-ai-chat-bubble.is-user {
+  margin-left: auto;
+  background: #e9f0ff;
+  color: #23386e;
+  border: 1px solid #d8e4ff;
+}
+
+.fd-ai-prompt-row {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.fd-ai-prompt-row button {
+  border: 1px solid #dce4f7;
+  background: #ffffff;
+  color: #425b92;
+  border-radius: 999px;
+  height: 30px;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.fd-ai-input-row {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+}
+
+.fd-ai-input-row input {
+  height: 38px;
+  border: 1px solid #dce4f7;
+  border-radius: 10px;
+  padding: 0 10px;
+  font: inherit;
+  color: #1f2e57;
+}
+
+.fd-ai-input-row button {
+  height: 38px;
+  border: none;
+  border-radius: 10px;
+  padding: 0 14px;
+  color: #ffffff;
+  font-weight: 700;
+  background: linear-gradient(120deg, #6c63ff, #4f46e5);
+  cursor: pointer;
+}
+
+@media (max-width: 980px) {
+  .fd-ai-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Settings workspace redesign */
+.fd-settings-workspace {
+  padding: 14px;
+  background: #ffffff;
+}
+
+.fd-settings-title-row {
+  margin-bottom: 12px;
+}
+
+.fd-settings-title-row h2 {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: -0.03em;
+  color: #1f2d55;
+}
+
+.fd-settings-tabs nav {
+  width: 100%;
+}
+
+.fd-settings-tabs.fd-settings-tabs-inline {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.fd-settings-tabs.fd-settings-tabs-inline button {
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid #dde7f8;
+  background: #f8fbff;
+  color: #2d3f68;
+  font-weight: 700;
+  text-align: center;
+  padding: 0 12px;
+  cursor: pointer;
+}
+
+.fd-settings-tabs.fd-settings-tabs-inline button.active {
+  background: linear-gradient(120deg, #e9f0ff, #eef4ff);
+  color: #405ec9;
+  border-color: #bfd1fa;
+  box-shadow: 0 6px 14px rgba(78, 106, 214, 0.16);
+}
+
+.fd-settings-panel {
+  padding: 20px 18px;
+  border-radius: 14px;
+  border: 1px solid #e3eaf8;
+  min-height: 620px;
+  background: #ffffff;
+}
+
+.fd-settings-block header h3 {
+  margin: 0;
+  font-size: clamp(22px, 2.1vw, 32px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: #212f54;
+}
+
+.fd-settings-block header p {
+  margin: 8px 0 0;
+  color: #60769e;
+  font-weight: 600;
+}
+
+.fd-settings-avatar-row {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0 18px;
+  border-bottom: 1px solid #e3eaf8;
+}
+
+.fd-settings-avatar {
+  width: 104px;
+  height: 104px;
+  border-radius: 999px;
+  border: 1px dashed #ccd9f4;
+  background: #f2f6ff;
+  color: #5f729a;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.fd-settings-avatar-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.fd-settings-avatar-actions button,
+.fd-settings-actions button,
+.fd-settings-inline-header button,
+.fd-settings-inline-form button {
+  height: 38px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(120deg, #5f89ff, #6d6bff);
+  color: #ffffff;
+  font-weight: 700;
+  padding: 0 16px;
+  cursor: pointer;
+}
+
+.fd-settings-avatar-actions .ghost {
+  background: #ffffff;
+  color: #41598f;
+  border: 1px solid #d7e2f8;
+}
+
+.fd-settings-form {
+  margin-top: 16px;
+  display: grid;
+  gap: 14px;
+}
+
+.fd-settings-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.fd-settings-grid.two {
+  grid-template-columns: 1fr 1fr;
+}
+
+.fd-settings-grid.two-plus {
+  grid-template-columns: 1.3fr 0.45fr;
+}
+
+.fd-settings-form label {
+  display: grid;
+  gap: 6px;
+  font-weight: 700;
+  color: #485f89;
+}
+
+.fd-settings-form input,
+.fd-settings-form select,
+.fd-settings-inline-form input {
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid #d4e0f6;
+  background: #fbfdff;
+  padding: 0 12px;
+  font: inherit;
+  color: #1f335f;
+}
+
+.fd-settings-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.fd-settings-switch-list {
+  margin-top: 14px;
+  border-top: 1px solid #e3eaf8;
+}
+
+.fd-settings-switch-row {
+  height: 70px;
+  border-bottom: 1px solid #e3eaf8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.fd-settings-switch-row span {
+  font-size: 19px;
+  font-weight: 700;
+  color: #23365f;
+}
+
+.fd-switch {
+  width: 56px;
+  height: 32px;
+  border-radius: 999px;
+  border: none;
+  background: #d9e1f1;
+  padding: 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.fd-switch span {
+  display: block;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 2px 4px rgba(30, 44, 88, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.fd-switch.on {
+  background: linear-gradient(120deg, #4f96ff, #4bc0ff);
+}
+
+.fd-switch.on span {
+  transform: translateX(24px);
+}
+
+.fd-settings-inline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+}
+
+.fd-settings-block hr {
+  border: 0;
+  border-top: 1px solid #e3eaf8;
+  margin: 26px 0;
+}
+
+.fd-settings-subsection h4 {
+  margin: 0;
+  font-size: clamp(26px, 2.5vw, 34px);
+  line-height: 1.03;
+  letter-spacing: -0.02em;
+  color: #242f4f;
+}
+
+.fd-settings-subsection p {
+  margin: 8px 0 0;
+  color: #647891;
+  font-size: 18px;
+}
+
+.fd-settings-subsection + .fd-settings-subsection {
+  margin-top: 30px;
+}
+
+.fd-settings-inline-form {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+}
+
+.fd-settings-subsection a {
+  display: inline-block;
+  margin-top: 10px;
+  color: #4566cc;
+  font-weight: 700;
+}
+
+.fd-settings-subsection.danger a {
+  color: #e04f69;
+  display: block;
+  margin-top: 14px;
+}
+
+.fd-settings-subsection .danger-btn {
+  margin-top: 12px;
+  background: linear-gradient(120deg, #ef5b73, #e0425c);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  border-radius: 12px;
+  padding: 0 20px;
+}
+
+.fd-settings-security header {
+  margin-bottom: 18px;
+}
+
+.fd-settings-security .fd-settings-subsection h4 {
+  font-size: clamp(22px, 2.1vw, 30px);
+}
+
+.fd-settings-security .fd-settings-subsection p {
+  max-width: 760px;
+}
+
+.fd-settings-members-list {
+  margin-top: 16px;
+  display: grid;
+  gap: 10px;
+}
+
+.fd-settings-members-list article {
+  border-radius: 12px;
+  border: 1px solid #dce6f9;
+  background: #f8fbff;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.fd-settings-members-list strong {
+  color: #20345f;
+}
+
+.fd-settings-members-list p {
+  margin: 4px 0 0;
+  color: #607796;
+}
+
+.fd-settings-members-list span {
+  border-radius: 999px;
+  border: 1px solid #d6e3fb;
+  background: #edf3ff;
+  color: #4060c7;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+}
+
+@media (max-width: 1200px) {
+  .fd-settings-tabs.fd-settings-tabs-inline {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .fd-settings-panel {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 980px) {
+  .fd-settings-tabs.fd-settings-tabs-inline {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fd-settings-panel {
+    padding: 16px;
+  }
+
+  .fd-settings-grid.two,
+  .fd-settings-grid.two-plus,
+  .fd-settings-inline-form {
+    grid-template-columns: 1fr;
+  }
+
+  .fd-settings-inline-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .fd-settings-actions {
+    justify-content: stretch;
+  }
+
+  .fd-settings-actions button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .fd-settings-workspace {
+    padding: 10px;
+  }
+
+  .fd-settings-title-row h2 {
+    font-size: 28px;
+  }
+
+  .fd-settings-tabs.fd-settings-tabs-inline {
+    grid-template-columns: 1fr;
+  }
+
+  .fd-settings-avatar-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .fd-settings-avatar-actions {
+    width: 100%;
+  }
+
+  .fd-settings-avatar-actions button {
+    flex: 1;
+  }
+}
+
+/* Dashboard overview rework */
+.fd-dash-overview {
+  display: grid;
+  gap: 12px;
+}
+
+.fd-dash-welcome-card {
+  border: 1px solid #e1e8f8;
+  border-radius: 16px;
+  background: linear-gradient(160deg, #f8fbff, #f3f7ff);
+  padding: 16px;
+}
+
+.fd-dash-chip-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.fd-dash-chip {
+  height: 30px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.fd-dash-chip.level {
+  background: #f0ecff;
+  color: #5d4fd1;
+  border-color: #d8d0ff;
+}
+
+.fd-dash-chip.xp {
+  background: #fff8ea;
+  color: #a86b0b;
+  border-color: #f6e3bb;
+}
+
+.fd-dash-chip.streak {
+  background: #ecfbf2;
+  color: #1b7c43;
+  border-color: #cdeedb;
+}
+
+.fd-dash-welcome-card h2 {
+  margin: 0;
+  font-size: clamp(26px, 3.4vw, 44px);
+  letter-spacing: -0.03em;
+  color: #1d2b54;
+  line-height: 1.02;
+}
+
+.fd-dash-welcome-card > p {
+  margin: 8px 0 0;
+  color: #5f7397;
+  font-weight: 600;
+}
+
+.fd-dash-top-grid {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.fd-dash-metric-card {
+  border-radius: 14px;
+  border: 1px solid #d8e3fa;
+  background: #eef3ff;
+  padding: 14px;
+}
+
+.fd-dash-metric-card.accent {
+  background: #fff7e8;
+  border-color: #f5dfad;
+}
+
+.fd-dash-metric-card small {
+  color: #62789a;
+  font-weight: 700;
+}
+
+.fd-dash-metric-card strong {
+  display: block;
+  margin-top: 6px;
+  font-size: clamp(22px, 2.4vw, 34px);
+  color: #1d2b54;
+  line-height: 1.03;
+}
+
+.fd-dash-continue-card {
+  margin-top: 12px;
+  border: 1px solid #dce6fa;
+  border-radius: 14px;
+  background: #ffffff;
+  padding: 14px;
+}
+
+.fd-dash-continue-card p {
+  margin: 0;
+  color: #5f7397;
+  font-weight: 600;
+}
+
+.fd-dash-continue-card h3 {
+  margin: 6px 0 10px;
+  color: #1d2b54;
+  font-size: clamp(22px, 2.2vw, 30px);
+  line-height: 1.1;
+}
+
+.fd-dash-lesson-image-wrap {
+  height: 112px;
+  border-radius: 12px;
+  border: 1px solid #dce6fa;
+  background: #ffffff;
+  overflow: hidden;
+  margin: 8px 0 10px;
+}
+
+.fd-dash-lesson-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fd-dash-progress-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.fd-dash-progress-row small {
+  color: #60779d;
+  font-weight: 700;
+}
+
+.fd-dash-continue-card button,
+.fd-dash-shortcuts button {
+  margin-top: 12px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(120deg, #6c63ff, #4f46e5);
+  color: #ffffff;
+  font-weight: 700;
+  padding: 0 16px;
+  cursor: pointer;
+}
+
+.fd-dash-shortcuts {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.fd-dash-shortcuts button {
+  margin-top: 0;
+  background: #eef3ff;
+  border: 1px solid #dbe5f8;
+  color: #253b6f;
+}
+
+.fd-dash-weak-spots {
+  margin-top: 12px;
+  border: 1px solid #f3c7cf;
+  border-radius: 14px;
+  background: #fff2f5;
+  padding: 12px;
+}
+
+.fd-dash-weak-spots h4 {
+  margin: 0;
+  color: #be3951;
+  font-size: 20px;
+}
+
+.fd-dash-weak-spots p {
+  margin: 6px 0 0;
+  color: #7f4b56;
+  font-weight: 600;
+}
+
+.fd-dash-recent {
+  margin-top: 12px;
+  border: 1px solid #e2e9f8;
+  border-radius: 14px;
+  background: #ffffff;
+  padding: 12px;
+}
+
+.fd-dash-recent h4 {
+  margin: 0;
+  color: #243a6d;
+  font-size: 22px;
+}
+
+.fd-dash-recent ul {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fd-dash-recent li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid #edf2fb;
+  padding: 10px 0;
+}
+
+.fd-dash-recent li:first-child {
+  border-top: none;
+  padding-top: 4px;
+}
+
+.fd-dash-recent li span {
+  color: #3c4f79;
+  font-weight: 600;
+}
+
+.fd-dash-recent li strong {
+  font-weight: 800;
+}
+
+.fd-dash-recent li strong.positive {
+  color: #0f9b54;
+}
+
+.fd-dash-recent li strong.neutral {
+  color: #b67b00;
+}
+
+.fd-dash-recent li strong.secondary {
+  color: #5c4dc8;
+}
+
+@media (max-width: 1100px) {
+  .fd-dash-top-grid,
+  .fd-dash-shortcuts {
+    grid-template-columns: 1fr;
+  }
+
+  .fd-dash-continue-card h3 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 700px) {
+  .fd-dash-welcome-card {
+    padding: 12px;
+  }
+
+  .fd-dash-welcome-card h2 {
+    font-size: clamp(24px, 8.5vw, 36px);
+  }
+
+  .fd-dash-progress-row {
+    grid-template-columns: 1fr;
+  }
+
+  .fd-dash-recent li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Lessons page rework */
+.fd-lessons-page {
+  display: grid;
+  gap: 12px;
+}
+
+.fd-lessons-hero {
+  border: 1px solid #e1e8f8;
+  border-radius: 16px;
+  background: linear-gradient(160deg, #f8fbff, #f3f7ff);
+  padding: 14px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+}
+
+.fd-lessons-hero h2 {
+  margin: 0;
+  font-size: clamp(24px, 3vw, 40px);
+  letter-spacing: -0.03em;
+  color: #1f2f52;
+  line-height: 1.02;
+}
+
+.fd-lessons-hero p {
+  margin: 8px 0 0;
+  color: #5f7397;
+  font-weight: 600;
+}
+
+.fd-lessons-hero-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  min-width: 320px;
+}
+
+.fd-lessons-hero-stats article {
+  border: 1px solid #dce6f8;
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 10px;
+}
+
+.fd-lessons-hero-stats small {
+  color: #60779d;
+  font-weight: 700;
+}
+
+.fd-lessons-hero-stats strong {
+  display: block;
+  margin-top: 6px;
+  color: #1f2f52;
+  font-size: 28px;
+  line-height: 1.04;
+}
+
+.fd-lessons-lower-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 12px;
+}
+
+.fd-lessons-recommend-list {
+  grid-template-columns: 1fr;
+}
+
+.fd-lessons-recommend-item {
+  border: 1px solid #e0e8f8;
+  border-radius: 12px;
+  background: #f9fbff;
+  padding: 12px;
+}
+
+.fd-lessons-recommend-item + .fd-lessons-recommend-item {
+  margin-top: 8px;
+}
+
+.fd-lessons-recommend-image-wrap {
+  height: 92px;
+  border-radius: 10px;
+  border: 1px solid #dce6f8;
+  background: #ffffff;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.fd-lessons-recommend-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fd-lessons-recommend-item h3 {
+  margin: 0;
+  color: #20345f;
+  font-size: 19px;
+  line-height: 1.2;
+}
+
+.fd-lessons-recommend-item p {
+  margin: 6px 0 10px;
+  color: #5f7397;
+}
+
+.fd-lessons-recommend-item button {
+  height: 34px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(120deg, #6c63ff, #4f46e5);
+  color: #ffffff;
+  font-weight: 700;
+  padding: 0 14px;
+  cursor: pointer;
+}
+
+@media (max-width: 1180px) {
+  .fd-lessons-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .fd-lessons-hero-stats {
+    min-width: 0;
+  }
+
+  .fd-lessons-lower-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .fd-lessons-hero-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Dashboard dark mode */
+.fd-dark {
+  --fd-dark-bg: #0b1020;
+  --fd-dark-surface: #101833;
+  --fd-dark-card: #151f3f;
+  --fd-dark-line: #25335f;
+  --fd-dark-text: #eef3ff;
+  --fd-dark-muted: #a9b6dc;
+}
+
+.fd-dark,
+.fd-dark #root,
+.fd-dark .fd-site {
+  background: radial-gradient(900px 500px at 10% -10%, rgba(90, 113, 214, 0.22), rgba(90, 113, 214, 0)), var(--fd-dark-bg);
+  color: var(--fd-dark-text);
+}
+
+.fd-dark .fd-pro-shell,
+.fd-dark .fd-pro-main-area,
+.fd-dark .fd-pro-sidebar,
+.fd-dark .fd-pro-card,
+.fd-dark .fd-pro-upcoming,
+.fd-dark .fd-pro-profile,
+.fd-dark .fd-pro-recent,
+.fd-dark .fd-dash-welcome-card,
+.fd-dark .fd-settings-panel,
+.fd-dark .fd-settings-workspace,
+.fd-dark .fd-achievements-page,
+.fd-dark .fd-ai-panel,
+.fd-dark .fd-achievements-overview,
+.fd-dark .fd-settings-tabs.fd-settings-tabs-inline button,
+.fd-dark .fd-pro-current-card,
+.fd-dark .fd-pro-type-card,
+.fd-dark .fd-pro-recommend-card {
+  background: var(--fd-dark-card);
+  border-color: var(--fd-dark-line);
+  color: var(--fd-dark-text);
+}
+
+.fd-dark .fd-pro-topbar,
+.fd-dark .fd-pro-main-area,
+.fd-dark .fd-pro-sidebar,
+.fd-dark .fd-settings-title-row,
+.fd-dark .fd-settings-tabs,
+.fd-dark .fd-settings-panel {
+  background: var(--fd-dark-surface);
+  border-color: var(--fd-dark-line);
+}
+
+.fd-dark .fd-pro-topbar p,
+.fd-dark .fd-pro-card-head h2,
+.fd-dark .fd-pro-profile p,
+.fd-dark .fd-pro-state-msg,
+.fd-dark .fd-dash-welcome-card > p,
+.fd-dark .fd-dash-recent li span,
+.fd-dark .fd-settings-block header p,
+.fd-dark .fd-settings-subsection p,
+.fd-dark .fd-achievement-card p,
+.fd-dark .fd-achievements-overview > p {
+  color: var(--fd-dark-muted);
+}
+
+.fd-dark .fd-pro-nav button,
+.fd-dark .fd-pro-logout,
+.fd-dark .fd-pro-top-actions button,
+.fd-dark .fd-pro-top-actions a,
+.fd-dark .fd-pro-search,
+.fd-dark .fd-settings-form input,
+.fd-dark .fd-settings-form select,
+.fd-dark .fd-settings-inline-form input,
+.fd-dark .fd-ai-input-row input,
+.fd-dark .fd-ai-chat-stream,
+.fd-dark .fd-ai-response-box,
+.fd-dark .fd-achievements-progress-card,
+.fd-dark .fd-achievement-card,
+.fd-dark .fd-lessons-hero-stats article,
+.fd-dark .fd-lessons-recommend-item,
+.fd-dark .fd-dash-continue-card,
+.fd-dark .fd-dash-recent,
+.fd-dark .fd-dash-shortcuts button {
+  background: #1a264c;
+  border-color: #2b3a68;
+  color: var(--fd-dark-text);
+}
+
+.fd-dark .fd-pro-nav button.active,
+.fd-dark .fd-settings-tabs.fd-settings-tabs-inline button.active {
+  background: linear-gradient(120deg, #293d79, #33458a);
+  color: #f2f6ff;
+  border-color: #4f66b5;
+}
+
+.fd-dark .fd-pro-brand,
+.fd-dark .fd-dash-welcome-card h2,
+.fd-dark .fd-dash-metric-card strong,
+.fd-dark .fd-dash-recent h4,
+.fd-dark .fd-settings-title-row h2,
+.fd-dark .fd-settings-block header h3,
+.fd-dark .fd-settings-subsection h4,
+.fd-dark .fd-achievements-head h2,
+.fd-dark .fd-achievements-list-head h3,
+.fd-dark .fd-achievement-card h3,
+.fd-dark .fd-ai-head h2,
+.fd-dark .fd-ai-panel-head h3,
+.fd-dark .fd-lessons-hero h2,
+.fd-dark .fd-achievements-detail h4 {
+  color: var(--fd-dark-text);
+}
+
+.fd-dark .fd-pro-search input::placeholder,
+.fd-dark .fd-ai-input-row input::placeholder {
+  color: #b8c5ea;
+}
+
+.fd-dark .fd-dash-weak-spots {
+  background: #3a1f2b;
+  border-color: #653548;
+}
+
+.fd-dark .fd-dash-weak-spots h4 {
+  color: #ff7b97;
+}
+
+.fd-dark .fd-dash-weak-spots p {
+  color: #f6b8c8;
+}
+
+.fd-dark .fd-pro-progress-bar,
+.fd-dark .fd-achievements-progress-bar {
+  background: #243458;
+}
+
+.fd-dark .fd-pro-upcoming-list div,
+.fd-dark .fd-settings-members-list article {
+  background: #1a264c;
+  border-color: #2b3a68;
+}
+
+/* Dark mode contrast fixes */
+.fd-dark .fd-pro-top-actions a,
+.fd-dark .fd-pro-top-actions button,
+.fd-dark .fd-settings-avatar-actions .ghost,
+.fd-dark .fd-dash-shortcuts button {
+  color: #eaf0ff;
+}
+
+.fd-dark .fd-pro-top-actions button,
+.fd-dark .fd-pro-top-actions a,
+.fd-dark .fd-settings-avatar-actions .ghost {
+  background: #1b274d;
+  border: 1px solid #334778;
+}
+
+.fd-dark .fd-pro-top-actions a:hover,
+.fd-dark .fd-pro-top-actions button:hover,
+.fd-dark .fd-settings-avatar-actions .ghost:hover,
+.fd-dark .fd-dash-shortcuts button:hover {
+  background: #243361;
+  border-color: #4960a4;
+}
+
+.fd-dark .fd-pro-top-actions a {
+  text-decoration: none;
+}
+
+.fd-dark .fd-pro-upcoming-list p,
+.fd-dark .fd-pro-upcoming-list small,
+.fd-dark .fd-pro-profile li span,
+.fd-dark .fd-pro-profile li strong,
+.fd-dark .fd-achievements-progress-card small,
+.fd-dark .fd-achievements-progress-card p,
+.fd-dark .fd-achievements-overview-cards p,
+.fd-dark .fd-achievements-overview-cards strong,
+.fd-dark .fd-achievements-day-col small,
+.fd-dark .fd-lessons-recommend-item p,
+.fd-dark .fd-settings-members-list p,
+.fd-dark .fd-settings-members-list strong,
+.fd-dark .fd-settings-members-list span,
+.fd-dark .fd-settings-form label,
+.fd-dark .fd-ai-status,
+.fd-dark .fd-ai-response-box p {
+  color: #c3cfef;
+}
+
+.fd-dark .fd-achievements-overview-cards article,
+.fd-dark .fd-achievements-week-strip,
+.fd-dark .fd-lessons-hero-stats article,
+.fd-dark .fd-lessons-recommend-item,
+.fd-dark .fd-pro-profile li,
+.fd-dark .fd-achievements-detail {
+  background: #182347;
+  border-color: #2c3c6c;
+}
+
+.fd-dark .fd-pro-type-image-wrap,
+.fd-dark .fd-pro-card-image-wrap,
+.fd-dark .fd-pro-recommend-image-wrap,
+.fd-dark .fd-dash-lesson-image-wrap,
+.fd-dark .fd-lessons-recommend-image-wrap {
+  background: #182347;
+  border-color: #304372;
+}
+
+.fd-dark .fd-pro-type-image,
+.fd-dark .fd-pro-card-image,
+.fd-dark .fd-pro-recommend-image,
+.fd-dark .fd-dash-lesson-image,
+.fd-dark .fd-lessons-recommend-image {
+  opacity: 0.92;
+}
+
+.fd-dark .fd-achievements-overview-chips .chip.level {
+  background: #2a2550;
+  color: #c4b9ff;
+  border-color: #4a4186;
+}
+
+.fd-dark .fd-achievements-overview-chips .chip.xp {
+  background: #4a3a19;
+  color: #ffd57b;
+  border-color: #6d5830;
+}
+
+.fd-dark .fd-achievements-overview-chips .chip.streak {
+  background: #1b3a2d;
+  color: #8ee0b6;
+  border-color: #2f5c49;
+}
+
+.fd-dark .fd-settings-form input,
+.fd-dark .fd-settings-form select,
+.fd-dark .fd-settings-inline-form input,
+.fd-dark .fd-ai-input-row input,
+.fd-dark .fd-pro-search input {
+  color: #eef3ff;
+  background: #182347;
+  border-color: #324575;
+}
+
+.fd-dark .fd-settings-form input::placeholder,
+.fd-dark .fd-settings-inline-form input::placeholder,
+.fd-dark .fd-ai-input-row input::placeholder,
+.fd-dark .fd-pro-search input::placeholder {
+  color: #9db0de;
+}
+
+.fd-dark .fd-settings-subsection a,
+.fd-dark .fd-pro-upcoming a {
+  color: #8fb0ff;
+}
+
+.fd-dark .fd-settings-subsection.danger a {
+  color: #ff9cb1;
+}
+
+.fd-dark .fd-settings-subsection .danger-btn {
+  color: #ffffff;
+}
+
+.fd-dark .fd-achievements-filters button {
+  background: #1a264c;
+  border-color: #334778;
+  color: #dce5ff;
+}
+
+.fd-dark .fd-achievements-filters button.active {
+  background: linear-gradient(120deg, #5f6fff, #4f46e5);
+  border-color: transparent;
+  color: #ffffff;
+}
+
+.fd-dark .fd-achievements-detail .label,
+.fd-dark .fd-achievements-detail p {
+  color: #bfcced;
+}
+
+/* Dark mode deep visibility pass */
+.fd-settings-panel .fd-settings-form {
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+.fd-dark .fd-pro-user-pill {
+  background: #1a264c;
+  border-color: #324575;
+  color: #d5e0ff;
+}
+
+.fd-dark .fd-pro-search input {
+  color: #edf3ff;
+}
+
+.fd-dark .fd-dash-metric-card {
+  background: #1b274d;
+  border-color: #334778;
+}
+
+.fd-dark .fd-dash-metric-card.accent {
+  background: #3b3019;
+  border-color: #69542a;
+}
+
+.fd-dark .fd-dash-metric-card small,
+.fd-dark .fd-dash-progress-row small,
+.fd-dark .fd-dash-continue-card p {
+  color: #c8d3f1;
+}
+
+.fd-dark .fd-dash-continue-card h3 {
+  color: #eef3ff;
+}
+
+.fd-dark .fd-lessons-hero {
+  background: #162043;
+  border-color: #2e3d69;
+}
+
+.fd-dark .fd-lessons-hero p,
+.fd-dark .fd-lessons-hero-stats small,
+.fd-dark .fd-lessons-hero-stats strong {
+  color: #c7d2f0;
+}
+
+.fd-dark .fd-pro-type-card h3,
+.fd-dark .fd-pro-current-card h3,
+.fd-dark .fd-pro-recommend-card h3,
+.fd-dark .fd-lessons-recommend-item h3 {
+  color: #edf3ff;
+}
+
+.fd-dark .fd-pro-type-card p,
+.fd-dark .fd-pro-current-card p,
+.fd-dark .fd-pro-recommend-card p,
+.fd-dark .fd-lessons-recommend-item p,
+.fd-dark .fd-pro-type-card span {
+  color: #b9c8eb;
+}
+
+.fd-dark .fd-achievements-overview h3,
+.fd-dark .fd-achievements-progress-card h3,
+.fd-dark .fd-achievements-progress-label,
+.fd-dark .fd-achievements-list-head h3 {
+  color: #edf3ff;
+}
+
+.fd-dark .fd-achievement-state.is-locked {
+  color: #cad4ef;
+  background: #27355f;
+  border-color: #41558f;
+}
+
+.fd-dark .fd-ai-chat-bubble.is-ai {
+  background: #22315f;
+  border-color: #3b5188;
+  color: #e3ebff;
+}
+
+.fd-dark .fd-ai-chat-bubble.is-user {
+  background: #2a3b6f;
+  border-color: #4a63a4;
+  color: #edf3ff;
+}
+
+/* Motion + hover polish pass */
+@keyframes fd-fade-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fd-soft-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(108, 99, 255, 0.22);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(108, 99, 255, 0);
+  }
+}
+
+.fd-pro-main > * {
+  animation: fd-fade-slide-up 0.32s ease both;
+}
+
+.fd-pro-main > *:nth-child(2) {
+  animation-delay: 0.04s;
+}
+
+.fd-pro-main > *:nth-child(3) {
+  animation-delay: 0.08s;
+}
+
+.fd-pro-main > *:nth-child(4) {
+  animation-delay: 0.12s;
+}
+
+.fd-pro-nav button,
+.fd-pro-logout,
+.fd-pro-top-actions button,
+.fd-pro-top-actions a,
+.fd-settings-tabs.fd-settings-tabs-inline button,
+.fd-achievements-filters button,
+.fd-dash-shortcuts button,
+.fd-dash-continue-card button,
+.fd-lessons-recommend-item button,
+.fd-ai-primary-btn,
+.fd-ai-prompt-row button,
+.fd-ai-input-row button,
+.fd-achievement-card,
+.fd-pro-upcoming-list button {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.25s ease,
+    background-color 0.22s ease,
+    border-color 0.22s ease,
+    color 0.22s ease,
+    opacity 0.2s ease;
+}
+
+.fd-pro-nav button:hover,
+.fd-settings-tabs.fd-settings-tabs-inline button:hover,
+.fd-achievements-filters button:hover,
+.fd-dash-shortcuts button:hover,
+.fd-pro-top-actions button:hover,
+.fd-pro-top-actions a:hover,
+.fd-pro-logout:hover,
+.fd-lessons-recommend-item button:hover,
+.fd-ai-primary-btn:hover,
+.fd-ai-prompt-row button:hover,
+.fd-ai-input-row button:hover,
+.fd-pro-upcoming-list button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(79, 70, 229, 0.18);
+}
+
+.fd-achievement-card:hover,
+.fd-pro-current-card:hover,
+.fd-pro-type-card:hover,
+.fd-pro-recommend-card:hover,
+.fd-ai-panel:hover,
+.fd-settings-members-list article:hover,
+.fd-pro-upcoming-list div:hover,
+.fd-achievements-progress-card:hover,
+.fd-achievements-overview-cards article:hover,
+.fd-lessons-recommend-item:hover {
+  transform: translateY(-3px);
+}
+
+.fd-dash-chip,
+.fd-achievements-overview-chips .chip {
+  transition: transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+.fd-dash-chip:hover,
+.fd-achievements-overview-chips .chip:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(79, 70, 229, 0.18);
+}
+
+.fd-achievement-card.is-selected,
+.fd-settings-tabs.fd-settings-tabs-inline button.active,
+.fd-achievements-filters button.active {
+  animation: fd-soft-pulse 1.4s ease;
+}
+
+.fd-dash-recent li,
+.fd-pro-upcoming-list div,
+.fd-settings-members-list article,
+.fd-achievements-day-col span {
+  transition: transform 0.2s ease, background-color 0.22s ease, border-color 0.22s ease;
+}
+
+.fd-dash-recent li:hover {
+  transform: translateX(4px);
+}
+
+.fd-achievements-day-col:hover span {
+  transform: scaleY(1.06);
+}
+
+.fd-pro-search,
+.fd-ai-input-row input,
+.fd-settings-form input,
+.fd-settings-form select,
+.fd-settings-inline-form input {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.fd-pro-search:focus-within,
+.fd-ai-input-row input:focus,
+.fd-settings-form input:focus,
+.fd-settings-form select:focus,
+.fd-settings-inline-form input:focus {
+  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.18);
+}
+
+.fd-dark .fd-pro-nav button:hover,
+.fd-dark .fd-settings-tabs.fd-settings-tabs-inline button:hover,
+.fd-dark .fd-achievements-filters button:hover,
+.fd-dark .fd-dash-shortcuts button:hover,
+.fd-dark .fd-pro-top-actions button:hover,
+.fd-dark .fd-pro-top-actions a:hover,
+.fd-dark .fd-pro-logout:hover,
+.fd-dark .fd-lessons-recommend-item button:hover,
+.fd-dark .fd-ai-primary-btn:hover,
+.fd-dark .fd-ai-prompt-row button:hover,
+.fd-dark .fd-ai-input-row button:hover,
+.fd-dark .fd-pro-upcoming-list button:hover {
+  box-shadow: 0 10px 22px rgba(108, 99, 255, 0.28);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fd-pro-main > *,
+  .fd-pro-nav button,
+  .fd-pro-logout,
+  .fd-pro-top-actions button,
+  .fd-pro-top-actions a,
+  .fd-settings-tabs.fd-settings-tabs-inline button,
+  .fd-achievements-filters button,
+  .fd-dash-shortcuts button,
+  .fd-dash-continue-card button,
+  .fd-lessons-recommend-item button,
+  .fd-ai-primary-btn,
+  .fd-ai-prompt-row button,
+  .fd-ai-input-row button,
+  .fd-achievement-card,
+  .fd-pro-upcoming-list button,
+  .fd-dash-recent li,
+  .fd-settings-members-list article,
+  .fd-pro-upcoming-list div {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
 }
