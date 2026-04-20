@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fluentia Module Checkpoint</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="module_asessment.css" />
+  </head>
+  <body>
+    <div class="fd-site checkpoint-site">
+      <header class="fd-topbar">
+        <div class="fd-logo">Fluentia</div>
+        <div class="fd-topbar-actions">
+          <button
+            class="fd-btn-light"
+            type="button"
+            onclick="window.location.href = 'module.html'"
+          >
+            Back to Lesson
+          </button>
+        </div>
+      </header>
+
+      <section id="intro" class="fd-section checkpoint-hero">
+        <div class="checkpoint-hero-copy">
+          <div class="assessment-kicker">Module Checkpoint</div>
+          <h1>Earn XP and level up your learning path</h1>
+          <p>
+            Complete this short checkpoint after finishing your lesson module.
+            Your performance gives you XP, tracks your growth, and unlocks the
+            next stage.
+          </p>
+
+          <div class="assessment-meta">
+            <div class="assessment-stat-card">
+              <span class="stat-number">6</span>
+              <span class="stat-label">Questions</span>
+            </div>
+            <div class="assessment-stat-card">
+              <span class="stat-number">150</span>
+              <span class="stat-label">Max XP</span>
+            </div>
+            <div class="assessment-stat-card">
+              <span class="stat-number">1</span>
+              <span class="stat-label">Level Goal</span>
+            </div>
+          </div>
+
+          <button
+            class="fd-btn-dark checkpoint-start-btn"
+            onclick="startAssessment()"
+          >
+            Start Checkpoint
+          </button>
+        </div>
+
+        <div class="assessment-side-card">
+          <div class="assessment-side-top">
+            <span class="assessment-chip">XP Enabled</span>
+            <span class="assessment-chip soft">Module Reward</span>
+          </div>
+
+          <h3>How rewards work</h3>
+
+          <div class="assessment-side-list">
+            <div class="assessment-list-item">
+              <span class="list-dot"></span>Correct answers give XP
+            </div>
+            <div class="assessment-list-item">
+              <span class="list-dot"></span>Higher scores give bonus XP
+            </div>
+            <div class="assessment-list-item">
+              <span class="list-dot"></span>Levels rise when XP reaches the goal
+            </div>
+            <div class="assessment-list-item">
+              <span class="list-dot"></span>Your progress is saved locally in
+              the browser
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="question-screen" class="fd-section assessment-shell">
+        <div class="assessment-progress-card">
+          <div class="progress-top-row">
+            <div>
+              <p class="progress-label">Checkpoint Progress</p>
+              <h3>Finish strong</h3>
+            </div>
+            <div class="progress-count" id="progress-text"></div>
+          </div>
+
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="progress-fill"></div>
+          </div>
+
+          <div class="progress-steps" id="pip-row"></div>
+        </div>
+
+        <div class="xp-status-bar">
+          <div class="xp-mini-card">
+            <span class="xp-mini-label">Current Level</span>
+            <span class="xp-mini-value" id="xp-current-level">1</span>
+          </div>
+          <div class="xp-mini-card">
+            <span class="xp-mini-label">Current XP</span>
+            <span class="xp-mini-value" id="xp-current-xp">0</span>
+          </div>
+          <div class="xp-mini-card">
+            <span class="xp-mini-label">XP to Next</span>
+            <span class="xp-mini-value" id="xp-needed">120</span>
+          </div>
+        </div>
+
+        <div id="q-mount"></div>
+      </section>
+
+      <section id="results-screen" class="fd-section assessment-shell">
+        <div class="results-wrapper" id="results-mount"></div>
+      </section>
+    </div>
+
+    <script src="module_assessment.js"></script>
+  </body>
+</html>

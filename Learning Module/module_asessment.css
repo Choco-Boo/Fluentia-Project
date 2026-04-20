@@ -9,7 +9,6 @@
   --fd-surface: rgba(248, 255, 252, 0.88);
   --fd-card: #ffffff;
   --fd-line: #d4e8df;
-  --fd-line-strong: #bdd8cd;
   --fd-text: #183b35;
   --fd-text-soft: #5d7d75;
   --fd-blue: #4d84ff;
@@ -56,7 +55,7 @@ textarea:focus-visible {
   box-shadow: var(--fd-focus);
 }
 
-.assessment-site {
+.checkpoint-site {
   width: 100%;
   min-height: 100vh;
   padding: clamp(10px, 1.8vw, 22px);
@@ -109,7 +108,8 @@ textarea:focus-visible {
 }
 
 .fd-btn-dark,
-.btn-next {
+.btn-next,
+.btn-restart {
   background: linear-gradient(120deg, var(--fd-blue), var(--fd-blue-strong));
   color: white;
   box-shadow: var(--fd-shadow-pill);
@@ -135,7 +135,7 @@ textarea:focus-visible {
   box-shadow: var(--fd-shadow-soft);
 }
 
-.assessment-hero {
+.checkpoint-hero {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
   gap: 24px;
@@ -143,28 +143,33 @@ textarea:focus-visible {
   align-items: stretch;
 }
 
-.assessment-hero-copy,
+.checkpoint-hero-copy,
 .assessment-side-card,
 .assessment-progress-card,
 .assessment-question-card,
 .score-box,
 .feedback-section,
 .next-steps,
-.fb-item {
+.fb-item,
+.xp-mini-card,
+.xp-earned-card,
+.xp-progress-card {
   border-radius: 22px;
   border: 1px solid var(--fd-line);
   background: var(--fd-card);
   box-shadow: 0 10px 26px rgba(27, 42, 82, 0.08);
 }
 
-.assessment-hero-copy {
+.checkpoint-hero-copy {
   padding: clamp(22px, 3vw, 34px);
 }
 
 .assessment-kicker,
 .results-tag,
 .feedback-heading,
-.progress-label {
+.progress-label,
+.xp-mini-label,
+.xp-earned-label {
   font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -172,15 +177,17 @@ textarea:focus-visible {
   font-weight: 700;
 }
 
-.assessment-hero-copy h1,
+.checkpoint-hero-copy h1,
 .results-title,
 .q-text,
-.progress-top-row h3 {
+.progress-top-row h3,
+.xp-earned-value,
+.xp-progress-title {
   margin: 0;
   letter-spacing: -0.02em;
 }
 
-.assessment-hero-copy h1 {
+.checkpoint-hero-copy h1 {
   font-family: "Space Grotesk", sans-serif;
   font-size: clamp(2.3rem, 4.8vw, 4.2rem);
   line-height: 1.02;
@@ -188,22 +195,38 @@ textarea:focus-visible {
   margin-bottom: 16px;
 }
 
-.assessment-hero-copy p {
-  font-size: 1.02rem;
+.checkpoint-hero-copy p,
+.results-subtitle,
+.fb-note,
+.next-steps p,
+.reading-text,
+.q-xp-note {
+  font-size: 1rem;
   line-height: 1.7;
   color: var(--fd-text-soft);
+}
+
+.checkpoint-hero-copy p {
   max-width: 650px;
   margin-bottom: 24px;
 }
 
-.assessment-meta {
+.assessment-meta,
+.xp-status-bar,
+.xp-results-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(110px, 1fr));
   gap: 14px;
+}
+
+.assessment-meta {
   margin-bottom: 24px;
 }
 
-.assessment-stat-card {
+.assessment-stat-card,
+.xp-mini-card,
+.xp-earned-card,
+.xp-progress-card {
   padding: 18px 16px;
   border-radius: 18px;
   background: linear-gradient(180deg, #f8fffc, #f1fbf7);
@@ -213,7 +236,9 @@ textarea:focus-visible {
   gap: 6px;
 }
 
-.stat-number {
+.stat-number,
+.xp-mini-value,
+.xp-earned-value {
   font-size: 1.8rem;
   font-weight: 800;
   color: var(--fd-text);
@@ -224,10 +249,6 @@ textarea:focus-visible {
   color: var(--fd-text-soft);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-}
-
-.assessment-start-btn {
-  min-width: 220px;
 }
 
 .assessment-side-card {
@@ -260,13 +281,16 @@ textarea:focus-visible {
   color: #239677;
 }
 
-.assessment-side-card h3 {
+.assessment-side-card h3,
+.next-steps h3,
+.xp-progress-title {
   margin: 0 0 18px;
   font-family: "Space Grotesk", sans-serif;
   font-size: 1.35rem;
 }
 
-.assessment-side-list {
+.assessment-side-list,
+.feedback-list {
   display: grid;
   gap: 12px;
 }
@@ -297,7 +321,7 @@ textarea:focus-visible {
 
 .assessment-progress-card {
   padding: 22px;
-  margin-bottom: 22px;
+  margin-bottom: 18px;
 }
 
 .progress-top-row {
@@ -319,7 +343,8 @@ textarea:focus-visible {
   font-weight: 700;
 }
 
-.progress-bar-track {
+.progress-bar-track,
+.xp-track {
   height: 12px;
   border-radius: 999px;
   background: #e8f1ee;
@@ -327,7 +352,8 @@ textarea:focus-visible {
   margin-bottom: 16px;
 }
 
-.progress-bar-fill {
+.progress-bar-fill,
+.xp-fill {
   width: 0%;
   height: 100%;
   border-radius: inherit;
@@ -337,7 +363,7 @@ textarea:focus-visible {
 
 .progress-steps {
   display: grid;
-  grid-template-columns: repeat(22, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 8px;
 }
 
@@ -354,6 +380,10 @@ textarea:focus-visible {
 
 .step-pip.active {
   background: linear-gradient(120deg, var(--fd-blue), var(--fd-blue-strong));
+}
+
+.xp-status-bar {
+  margin-bottom: 18px;
 }
 
 .assessment-question-card {
@@ -433,8 +463,12 @@ textarea:focus-visible {
   font-family: "Space Grotesk", sans-serif;
   font-size: clamp(1.35rem, 2.3vw, 2rem);
   line-height: 1.2;
-  margin-bottom: 22px;
+  margin-bottom: 10px;
   max-width: 760px;
+}
+
+.q-xp-note {
+  margin: 0 0 18px;
 }
 
 .reading-box {
@@ -443,12 +477,6 @@ textarea:focus-visible {
   border-radius: 18px;
   margin-bottom: 18px;
   background: linear-gradient(180deg, #f8fffc, #f3fbf8);
-}
-
-.reading-text {
-  margin: 0;
-  line-height: 1.75;
-  color: var(--fd-text-soft);
 }
 
 .match-grid {
@@ -475,7 +503,8 @@ textarea:focus-visible {
 }
 
 .option-card,
-.tf-card {
+.tf-card,
+.sa-area {
   width: 100%;
   text-align: left;
   padding: 17px 18px;
@@ -483,8 +512,12 @@ textarea:focus-visible {
   border: 1px solid var(--fd-line);
   background: #ffffff;
   color: var(--fd-text);
-  cursor: pointer;
   transition: 0.22s ease;
+}
+
+.option-card,
+.tf-card {
+  cursor: pointer;
 }
 
 .option-card:hover,
@@ -554,14 +587,8 @@ textarea:focus-visible {
 }
 
 .sa-area {
-  width: 100%;
   min-height: 150px;
   resize: vertical;
-  border-radius: 18px;
-  border: 1px solid var(--fd-line);
-  background: #ffffff;
-  padding: 18px;
-  color: var(--fd-text);
   line-height: 1.6;
 }
 
@@ -598,7 +625,7 @@ textarea:focus-visible {
 
 .results-hero {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
+  grid-template-columns: 1.1fr 0.9fr;
   gap: 18px;
   margin-bottom: 18px;
 }
@@ -606,9 +633,6 @@ textarea:focus-visible {
 .results-card-main,
 .score-box {
   padding: 24px;
-}
-
-.results-card-main {
   border-radius: 22px;
   border: 1px solid var(--fd-line);
   background: var(--fd-card);
@@ -620,12 +644,6 @@ textarea:focus-visible {
   font-size: clamp(2rem, 4vw, 3rem);
   margin-top: 10px;
   margin-bottom: 10px;
-}
-
-.results-subtitle {
-  color: var(--fd-text-soft);
-  line-height: 1.7;
-  margin: 0;
 }
 
 .score-box {
@@ -647,7 +665,7 @@ textarea:focus-visible {
   font-size: 0.82rem;
 }
 
-.level-badge {
+.level-badge-result {
   display: inline-flex;
   margin-top: 12px;
   padding: 8px 14px;
@@ -680,11 +698,6 @@ textarea:focus-visible {
 
 .feedback-heading {
   margin-bottom: 14px;
-}
-
-.feedback-list {
-  display: grid;
-  gap: 12px;
 }
 
 .fb-item {
@@ -753,8 +766,6 @@ textarea:focus-visible {
 
 .fb-note {
   margin: 0;
-  line-height: 1.6;
-  color: var(--fd-text-soft);
 }
 
 .next-steps {
@@ -764,40 +775,58 @@ textarea:focus-visible {
 }
 
 .next-steps h3 {
+  margin-bottom: 10px;
+}
+
+.xp-results-grid {
+  margin-bottom: 18px;
+}
+
+.xp-earned-card {
+  background: linear-gradient(135deg, #eef4ff, #f7fbff);
+}
+
+.xp-progress-card {
+  background: linear-gradient(135deg, #f0fff8, #f9fffd);
+}
+
+.xp-progress-card p {
   margin: 0 0 10px;
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 1.15rem;
-}
-
-.next-steps p {
-  margin: 0;
-  line-height: 1.7;
   color: var(--fd-text-soft);
+  line-height: 1.6;
 }
 
-.btn-restart {
-  background: linear-gradient(120deg, var(--fd-blue), var(--fd-blue-strong));
-  color: white;
-  box-shadow: var(--fd-shadow-pill);
+.xp-progress-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--fd-text-soft);
+  font-size: 0.9rem;
+}
+
+.result-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 @media (max-width: 960px) {
-  .assessment-hero,
+  .checkpoint-hero,
   .results-hero {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 700px) {
-  .assessment-meta {
-    grid-template-columns: 1fr;
-  }
-
+  .assessment-meta,
+  .xp-status-bar,
+  .xp-results-grid,
   .tf-grid {
     grid-template-columns: 1fr;
   }
 
-  .nav-row {
+  .nav-row,
+  .result-actions {
     flex-direction: column;
     align-items: stretch;
   }
@@ -809,9 +838,5 @@ textarea:focus-visible {
   .fd-btn-light {
     width: 100%;
     justify-content: center;
-  }
-
-  .progress-steps {
-    grid-template-columns: repeat(11, 1fr);
   }
 }

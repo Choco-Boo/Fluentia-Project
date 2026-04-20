@@ -3,76 +3,105 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Skills Assessment</title>
+    <title>Fluentia Assessment</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Syne:wght@400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
       rel="stylesheet"
     />
+
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="page">
-      <!-- NAV BAR -->
-      <header class="navbar">
-        <nav class="navbar-nav">
-          <button class="nav-button" onclick="window.location.href='signup.html'">Home</button>
-        </nav>
-      </header>
+    <div class="fd-site assessment-site">
 
-      <!-- INTRO -->
-      <section id="intro">
-        <div class="hero-tag">Language Proficiency</div>
-        <h1 class="hero-title">Measure Your<br /><em>True Level</em></h1>
-        <p class="hero-body">
-          A structured assessment across language proficiency concepts.
-          Answer honestly — the feedback is personalised to where you actually
-          are.
-        </p>
-        <div class="hero-meta">
-          <div class="meta-item">
-            <span class="meta-value">7</span>
-            <span class="meta-label">Questions</span>
+      <!-- intro -->
+      <section id="intro" class="fd-section assessment-hero">
+        <div class="assessment-hero-copy">
+          <div class="assessment-kicker">Language Assessment</div>
+          <h1>Find your Spanish level with confidence</h1>
+          <p>
+            Complete a structured assessment with multiple choice, true/false,
+            reading, matching, and short-answer questions. Your results will
+            help place you in the right learning path.
+          </p>
+
+          <div class="assessment-meta">
+            <div class="assessment-stat-card">
+              <span class="stat-number">22</span>
+              <span class="stat-label">Questions</span>
+            </div>
+            <div class="assessment-stat-card">
+              <span class="stat-number">20</span>
+              <span class="stat-label">Minutes</span>
+            </div>
+            <div class="assessment-stat-card">
+              <span class="stat-number">5</span>
+              <span class="stat-label">Formats</span>
+            </div>
           </div>
-          <div class="meta-divider"></div>
-          <div class="meta-item">
-            <span class="meta-value">~ 5</span>
-            <span class="meta-label">Minutes</span>
+
+          <button class="fd-btn-dark assessment-start-btn" onclick="startAssessment()">
+            Begin Assessment
+          </button>
+        </div>
+
+        <div class="assessment-side-card">
+          <div class="assessment-side-top">
+            <span class="assessment-chip">Placement Ready</span>
+            <span class="assessment-chip soft">Adaptive Feel</span>
           </div>
-          <div class="meta-divider"></div>
-          <div class="meta-item">
-            <span class="meta-value">3</span>
-            <span class="meta-label">Formats</span>
+
+          <h3>What you’ll be tested on</h3>
+
+          <div class="assessment-side-list">
+            <div class="assessment-list-item">
+              <span class="list-dot"></span>
+              Vocabulary and basic translation
+            </div>
+            <div class="assessment-list-item">
+              <span class="list-dot"></span>
+              Grammar and sentence correctness
+            </div>
+            <div class="assessment-list-item">
+              <span class="list-dot"></span>
+              Reading comprehension
+            </div>
+            <div class="assessment-list-item">
+              <span class="list-dot"></span>
+              Functional phrases and writing
+            </div>
           </div>
         </div>
-        <button class="btn-start" onclick="startAssessment()">
-          <span>Begin Assessment</span>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path
-              d="M3 8h10M9 4l4 4-4 4"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
       </section>
 
-      <!-- QUESTION SCREEN -->
-      <section id="question-screen">
-        <div class="progress-wrapper" id="progress-bar">
+      <!-- question screen -->
+      <section id="question-screen" class="fd-section assessment-shell">
+        <div class="assessment-progress-card">
+          <div class="progress-top-row">
+            <div>
+              <p class="progress-label">Assessment Progress</p>
+            </div>
+            <div class="progress-count" id="progress-text"></div>
+          </div>
+
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="progress-fill"></div>
+          </div>
+
           <div class="progress-steps" id="pip-row"></div>
-          <div class="progress-text" id="progress-text"></div>
         </div>
+
         <div id="q-mount"></div>
       </section>
 
-      <!-- RESULTS SCREEN -->
-      <section id="results-screen">
+      <!-- results -->
+      <section id="results-screen" class="fd-section assessment-shell">
         <div class="results-wrapper" id="results-mount"></div>
       </section>
     </div>
+
     <script src="script.js"></script>
   </body>
 </html>
