@@ -1,6 +1,4 @@
 const questions = [
-  /* ---------- BEGINNER ---------- */
-
   {
     id: 1,
     type: "mc",
@@ -9,7 +7,6 @@ const questions = [
     options: ["Buenas noches", "Buenos días", "Buenas tardes", "Hola"],
     correct: 1,
   },
-
   {
     id: 2,
     type: "tf",
@@ -17,7 +14,6 @@ const questions = [
     text: "'Gracias' means 'Thank you'",
     correct: true,
   },
-
   {
     id: 3,
     type: "mc",
@@ -31,7 +27,6 @@ const questions = [
     ],
     correct: 0,
   },
-
   {
     id: 4,
     type: "match",
@@ -43,7 +38,6 @@ const questions = [
       { left: "Libro", right: "Book" },
     ],
   },
-
   {
     id: 5,
     type: "tf",
@@ -51,7 +45,6 @@ const questions = [
     text: "'Perro' means 'Dog'",
     correct: true,
   },
-
   {
     id: 6,
     type: "mc",
@@ -60,9 +53,6 @@ const questions = [
     options: ["El mesa", "La mesa", "Los mesa", "Las mesa"],
     correct: 1,
   },
-
-  /* ---------- INTERMEDIATE ---------- */
-
   {
     id: 7,
     type: "mc",
@@ -76,7 +66,6 @@ const questions = [
     ],
     correct: 1,
   },
-
   {
     id: 8,
     type: "tf",
@@ -84,7 +73,6 @@ const questions = [
     text: "Spanish adjectives usually come after nouns",
     correct: true,
   },
-
   {
     id: 9,
     type: "reading",
@@ -95,7 +83,6 @@ const questions = [
     options: ["In a school", "In a hospital", "In a store", "In a bank"],
     correct: 1,
   },
-
   {
     id: 10,
     type: "mc",
@@ -109,7 +96,6 @@ const questions = [
     ],
     correct: 0,
   },
-
   {
     id: 11,
     type: "match",
@@ -121,7 +107,6 @@ const questions = [
       { left: "Vivir", right: "To live" },
     ],
   },
-
   {
     id: 12,
     type: "tf",
@@ -129,7 +114,6 @@ const questions = [
     text: "'Estoy' is used for temporary conditions",
     correct: true,
   },
-
   {
     id: 13,
     type: "reading",
@@ -140,9 +124,6 @@ const questions = [
     options: ["He studies", "He plays soccer", "He works", "He travels"],
     correct: 1,
   },
-
-  /* ---------- ADVANCED ---------- */
-
   {
     id: 14,
     type: "mc",
@@ -156,7 +137,6 @@ const questions = [
     ],
     correct: 0,
   },
-
   {
     id: 15,
     type: "tf",
@@ -164,7 +144,6 @@ const questions = [
     text: "Subjunctive mood expresses doubt or uncertainty",
     correct: true,
   },
-
   {
     id: 16,
     type: "reading",
@@ -180,7 +159,6 @@ const questions = [
     ],
     correct: 1,
   },
-
   {
     id: 17,
     type: "match",
@@ -192,7 +170,6 @@ const questions = [
       { left: "Tengo prisa", right: "I am in a hurry" },
     ],
   },
-
   {
     id: 18,
     type: "mc",
@@ -206,7 +183,6 @@ const questions = [
     ],
     correct: 0,
   },
-
   {
     id: 19,
     type: "reading",
@@ -222,7 +198,6 @@ const questions = [
     ],
     correct: 1,
   },
-
   {
     id: 20,
     type: "tf",
@@ -230,7 +205,6 @@ const questions = [
     text: "'Ser' and 'Estar' both mean 'to be'",
     correct: true,
   },
-
   {
     id: 21,
     type: "mc",
@@ -244,7 +218,6 @@ const questions = [
     ],
     correct: 0,
   },
-
   {
     id: 22,
     type: "sa",
@@ -255,11 +228,12 @@ const questions = [
 
 const answers = {};
 let current = 0;
+const LETTERS = ["A", "B", "C", "D"];
 
 function startAssessment() {
+  document.getElementById("intro").style.display = "grid";
   document.getElementById("intro").style.display = "none";
-  const qs = document.getElementById("question-screen");
-  qs.style.display = "block";
+  document.getElementById("question-screen").style.display = "block";
   buildPips();
   renderQuestion();
 }
@@ -273,119 +247,142 @@ function buildPips() {
 
 function updatePips() {
   questions.forEach((_, i) => {
-    const pip = document.getElementById("pip-" + i);
+    const pip = document.getElementById(`pip-${i}`);
     pip.className =
       "step-pip" + (i < current ? " done" : i === current ? " active" : "");
   });
+
   document.getElementById("progress-text").textContent =
     `${current + 1} / ${questions.length}`;
-}
 
-const LETTERS = ["A", "B", "C", "D"];
+  const fill = ((current + 1) / questions.length) * 100;
+  document.getElementById("progress-fill").style.width = `${fill}%`;
+}
 
 function renderQuestion() {
   updatePips();
+
   const q = questions[current];
   let answersHTML = "";
 
   if (q.type === "reading") {
     answersHTML = `
-    <div class="reading-box">
-    <p class="reading-text">${q.passage}</p>
-    </div>
-    
-    <div class="options-grid">
-    ${q.options
-      .map(
-        (o, i) => `
-        <button class="option-card${answers[q.id] === i ? " selected" : ""}" 
-        onclick="selectMC(${q.id},${i})">
-        <span class="option-letter">${LETTERS[i]}</span>
-        <span>${o}</span>
-        </button>
-        `,
-      )
-      .join("")}
-  </div>`;
-  }
+      <div class="reading-box">
+        <p class="reading-text">${q.passage}</p>
+      </div>
 
-  if (q.type === "match") {
+      <div class="options-grid">
+        ${q.options
+          .map(
+            (o, i) => `
+              <button class="option-card${answers[q.id] === i ? " selected" : ""}"
+                onclick="selectMC(${q.id}, ${i})">
+                <span class="option-letter">${LETTERS[i]}</span>
+                <span class="option-text">${o}</span>
+              </button>
+            `
+          )
+          .join("")}
+      </div>
+    `;
+  } else if (q.type === "match") {
     answersHTML = `
-<div class="match-grid">
-${q.pairs
-  .map(
-    (p) => `
-<div class="match-row">
-<span>${p.left}</span>
-<span>—</span>
-<span>${p.right}</span>
-</div>
-`,
-  )
-  .join("")}
-</div>
-`;
+      <div class="match-grid">
+        ${q.pairs
+          .map(
+            (p) => `
+              <div class="match-row">
+                <span>${p.left}</span>
+                <span>—</span>
+                <span>${p.right}</span>
+              </div>
+            `
+          )
+          .join("")}
+      </div>
+    `;
     answers[q.id] = true;
-  }
-
-  if (q.type === "mc") {
-    answersHTML = `<div class="options-grid">${q.options
-      .map(
-        (o, i) => `
-      <button class="option-card${answers[q.id] === i ? " selected" : ""}" onclick="selectMC(${q.id},${i})">
-        <span class="option-letter">${LETTERS[i]}</span>
-        <span class="option-text">${o}</span>
-      </button>`,
-      )
-      .join("")}</div>`;
+  } else if (q.type === "mc") {
+    answersHTML = `
+      <div class="options-grid">
+        ${q.options
+          .map(
+            (o, i) => `
+              <button class="option-card${answers[q.id] === i ? " selected" : ""}"
+                onclick="selectMC(${q.id}, ${i})">
+                <span class="option-letter">${LETTERS[i]}</span>
+                <span class="option-text">${o}</span>
+              </button>
+            `
+          )
+          .join("")}
+      </div>
+    `;
   } else if (q.type === "tf") {
     const sel = answers[q.id];
-    answersHTML = `<div class="tf-grid">
-      <button class="tf-card true-card${sel === true ? " selected" : ""}" onclick="selectTF(${q.id},true)">
-        True<span class="tf-sub">Select if correct</span>
-      </button>
-      <button class="tf-card false-card${sel === false ? " selected" : ""}" onclick="selectTF(${q.id},false)">
-        False<span class="tf-sub">Select if incorrect</span>
-      </button>
-    </div>`;
+    answersHTML = `
+      <div class="tf-grid">
+        <button class="tf-card true-card${sel === true ? " selected" : ""}" onclick="selectTF(${q.id}, true)">
+          True
+          <span class="tf-sub">Select if correct</span>
+        </button>
+        <button class="tf-card false-card${sel === false ? " selected" : ""}" onclick="selectTF(${q.id}, false)">
+          False
+          <span class="tf-sub">Select if incorrect</span>
+        </button>
+      </div>
+    `;
   } else {
-    answersHTML = `<div class="sa-wrapper">
-      <textarea class="sa-area" id="sa-input" placeholder="Write your answer here…" oninput="saveText(${q.id},this.value)">${answers[q.id] || ""}</textarea>
-      <p class="sa-hint">Minimum 10 characters to continue</p>
-    </div>`;
+    answersHTML = `
+      <div class="sa-wrapper">
+        <textarea
+          class="sa-area"
+          id="sa-input"
+          placeholder="Write your answer here…"
+          oninput="saveText(${q.id}, this.value)"
+        >${answers[q.id] || ""}</textarea>
+        <p class="sa-hint">Minimum 10 characters to continue</p>
+      </div>
+    `;
   }
 
-  const typeMap = { mc: "mc", tf: "tf", sa: "sa" };
   const typeLabel = {
-    mc: "Multiple choice",
+    mc: "Multiple Choice",
     tf: "True / False",
-    sa: "Short answer",
+    sa: "Short Answer",
+    reading: "Reading",
+    match: "Matching",
   };
+
   const hasAnswer =
     q.type === "sa"
       ? (answers[q.id] || "").trim().length > 9
       : answers[q.id] !== undefined;
+
   const isLast = current === questions.length - 1;
 
   document.getElementById("q-mount").innerHTML = `
-    <div class="q-wrapper">
+    <div class="assessment-question-card">
       <div class="q-header">
-        <div class="q-index">0${current + 1}</div>
-        <span class="q-type-pill ${typeMap[q.type]}">${typeLabel[q.type]}</span>
+        <div class="q-index">${String(current + 1).padStart(2, "0")}</div>
+        <span class="q-type-pill ${q.type}">${typeLabel[q.type]}</span>
       </div>
+
       <p class="q-text">${q.text}</p>
+
       ${answersHTML}
+
       <div class="nav-row">
-        <button class="btn-back" onclick="goBack()" style="${current === 0 ? "visibility:hidden" : ""}">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <button class="btn-back" onclick="goBack()" style="${current === 0 ? "visibility:hidden;" : ""}">
           Back
         </button>
+
         <button class="btn-next" id="btn-next" onclick="goNext()" ${!hasAnswer ? "disabled" : ""}>
           ${isLast ? "Submit & See Results" : "Next Question"}
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
       </div>
-    </div>`;
+    </div>
+  `;
 
   if (q.type === "sa") {
     document.getElementById("sa-input").addEventListener("input", function () {
@@ -399,38 +396,46 @@ function selectMC(id, i) {
   answers[id] = i;
   renderQuestion();
 }
-function selectTF(id, v) {
-  answers[id] = v;
+
+function selectTF(id, value) {
+  answers[id] = value;
   renderQuestion();
 }
-function saveText(id, v) {
-  answers[id] = v;
+
+function saveText(id, value) {
+  answers[id] = value;
 }
+
 function goBack() {
   if (current > 0) {
     current--;
     renderQuestion();
   }
 }
+
 function goNext() {
   if (current < questions.length - 1) {
     current++;
     renderQuestion();
-  } else showResults();
+  } else {
+    showResults();
+  }
 }
 
 function showResults() {
   document.getElementById("question-screen").style.display = "none";
   document.getElementById("results-screen").style.display = "block";
 
-  let score = 0,
-    scored = 0;
+  let score = 0;
+  let scored = 0;
   const feedbacks = [];
+
   questions.forEach((q) => {
-    if (q.type === "mc") {
+    if (q.type === "mc" || q.type === "reading") {
       scored++;
       const ok = answers[q.id] === q.correct;
       if (ok) score++;
+
       feedbacks.push({
         q: q.text,
         type: ok ? "correct" : "incorrect",
@@ -442,6 +447,7 @@ function showResults() {
       scored++;
       const ok = answers[q.id] === q.correct;
       if (ok) score++;
+
       feedbacks.push({
         q: q.text,
         type: ok ? "correct" : "incorrect",
@@ -453,84 +459,106 @@ function showResults() {
       feedbacks.push({
         q: q.text,
         type: "neutral",
-        note: `Your response: "${(answers[q.id] || "").trim().substring(0, 160)}${(answers[q.id] || "").length > 160 ? "…" : ""}"`,
+        note: `Your response: "${(answers[q.id] || "")
+          .trim()
+          .substring(0, 160)}${(answers[q.id] || "").length > 160 ? "…" : ""}"`,
       });
     }
   });
 
-  const pct = Math.round((score / scored) * 100);
-  let level, levelClass, emoji, advice;
+  const pct = scored === 0 ? 0 : Math.round((score / scored) * 100);
+
+  let level;
+  let levelClass;
+  let advice;
+
   if (pct >= 80) {
     level = "Advanced";
     levelClass = "level-adv";
-    emoji = "✓";
     advice =
-      "Strong performance across the objective questions. Review your open-ended responses to tighten your conceptual explanations and push toward mastery.";
+      "Strong performance across the objective questions. Review your open-ended responses to tighten your explanations and push toward mastery.";
   } else if (pct >= 60) {
     level = "Intermediate";
     levelClass = "level-int";
-    emoji = "~";
     advice =
-      "A solid base is in place. Revisit the questions you missed — the gaps are specific and addressable. Consistent practice will get you to advanced.";
+      "You have a solid base. Revisit the questions you missed and focus on the patterns behind them to move into advanced content.";
   } else {
     level = "Foundational";
     levelClass = "level-fnd";
-    emoji = "!";
     advice =
-      "Focus on the fundamentals before moving to advanced topics. Each missed question points to a specific concept worth studying — use them as your study guide.";
+      "Focus on the fundamentals first. The missed questions point to the exact concepts you should review before moving on.";
   }
 
-  const icons = { correct: "✓", incorrect: "✗", neutral: "◎" };
-  const fbHTML = feedbacks
+  const icons = {
+    correct: "✓",
+    incorrect: "✗",
+    neutral: "•",
+  };
+
+  const feedbackHTML = feedbacks
     .map(
       (f) => `
-    <div class="fb-item">
-      <div class="fb-icon ${f.type}">${icons[f.type]}</div>
-      <div>
-        <div class="fb-answer-tag">${f.type === "correct" ? "Correct" : f.type === "incorrect" ? "Incorrect" : "Open Answer"}</div>
-        <p class="fb-q">${f.q}</p>
-        <p class="fb-note">${f.note}</p>
-      </div>
-    </div> `,
+        <div class="fb-item">
+          <div class="fb-icon ${f.type}">${icons[f.type]}</div>
+          <div>
+            <div class="fb-answer-tag ${f.type}">
+              ${
+                f.type === "correct"
+                  ? "Correct"
+                  : f.type === "incorrect"
+                  ? "Incorrect"
+                  : "Open Answer"
+              }
+            </div>
+            <p class="fb-q">${f.q}</p>
+            <p class="fb-note">${f.note}</p>
+          </div>
+        </div>
+      `
     )
     .join("");
 
   document.getElementById("results-mount").innerHTML = `
     <div class="results-hero">
-      <div>
-        <div class="results-tag">Assessment complete</div>
+      <div class="results-card-main">
+        <div class="results-tag">Assessment Complete</div>
         <h2 class="results-title">Your Results</h2>
-        <p class="results-subtitle">You answered ${score} of ${scored} objective questions correctly. See detailed feedback below.</p>
+        <p class="results-subtitle">
+          You answered ${score} of ${scored} objective questions correctly.
+          Review the detailed breakdown below to see what to study next.
+        </p>
       </div>
+
       <div class="score-box">
         <div class="score-pct">${pct}%</div>
-        <div class="score-label">${score} / ${scored} correct</div>
+        <div class="score-label">${score} / ${scored} Correct</div>
         <div class="level-badge ${levelClass}">${level}</div>
       </div>
     </div>
+
     <div class="feedback-section">
-      <div class="feedback-heading">Question breakdown</div>
-      ${fbHTML}
+      <div class="feedback-heading">Question Breakdown</div>
+      <div class="feedback-list">
+        ${feedbackHTML}
+      </div>
     </div>
+
     <div class="next-steps">
-      <h3>Recommended next steps</h3>
+      <h3>Recommended Next Steps</h3>
       <p>${advice}</p>
     </div>
+
     <button class="btn-restart" onclick="restartAssessment()">
-      <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M2 7.5a5.5 5.5 0 1 1 1.1 3.3M2 11V7.5H5.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Retake Assessment
-    </button>`;
+    </button>
+  `;
 }
 
 function restartAssessment() {
-  Object.keys(answers).forEach((k) => delete answers[k]);
+  Object.keys(answers).forEach((key) => delete answers[key]);
   current = 0;
+
   document.getElementById("results-screen").style.display = "none";
-  document.getElementById("intro").style.display = "block";
-  document.getElementById("intro").style.opacity = "0";
-  document.getElementById("intro").style.animation = "none";
-  setTimeout(() => {
-    document.getElementById("intro").style.animation =
-      "rise 0.5s ease forwards";
-  }, 10);
+  document.getElementById("intro").style.display = "grid";
+  document.getElementById("q-mount").innerHTML = "";
 }

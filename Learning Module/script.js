@@ -1,23 +1,27 @@
 /* ════════════════════════════════════
   LESSON CONFIG
-  ─────────────────────────────────────
-  The backend sets difficulty before the
-  page initialises by injecting a global:
-
-    window.LessonConfig = {
-      difficulty: "beginner" | "intermediate" | "advanced"
-    };
-
-  If nothing is injected, "beginner" is used
-  as the safe fallback.
-
-  Each activity module also exposes a
-  setDifficulty(level) method so the backend
-  can update difficulty mid-session if needed
-  (e.g. adaptive branching after a checkpoint).
 ════════════════════════════════════ */
 
-const LessonConfig = window.LessonConfig || { difficulty: "beginner" };
+const LessonConfig = window.LessonConfig || { difficulty: "advanced" };
+
+/*
+  Backend can inject this before script.js:
+
+  window.LessonFlowConfig = {
+    checkpointUrl: "end_module_assessment.html",
+    lessonOrder: [1, 2, 3, 4, 5]
+  };
+
+  Example if speech is removed:
+  lessonOrder: [1, 2, 3, 4]
+
+  Example if role play is last:
+  lessonOrder: [1, 2, 4]
+*/
+const LessonFlowConfig = window.LessonFlowConfig || {
+  checkpointUrl: "module_assessment.html",
+  lessonOrder: [1, 2, 3, 4, 5],
+};
 
 const VALID_DIFFICULTIES = ["beginner", "intermediate", "advanced"];
 
@@ -26,7 +30,11 @@ function resolveDifficulty(requested) {
 }
 
 function getLevelLabel(difficulty) {
-  return { beginner: "Beginner", intermediate: "Intermediate", advanced: "Advanced" }[difficulty] || "Beginner";
+  return {
+    beginner: "Beginner",
+    intermediate: "Intermediate",
+    advanced: "Advanced",
+  }[difficulty] || "Beginner";
 }
 
 function syncLevelBadges(difficulty) {
@@ -59,11 +67,15 @@ function goToScreen(current, next) {
   const currentScreen = document.getElementById(current);
   const nextScreen = document.getElementById(next);
 
-  currentScreen.classList.remove("screen-active");
-  currentScreen.style.display = "none";
+  if (currentScreen) {
+    currentScreen.classList.remove("screen-active");
+    currentScreen.style.display = "none";
+  }
 
-  nextScreen.style.display = "flex";
-  requestAnimationFrame(() => nextScreen.classList.add("screen-active"));
+  if (nextScreen) {
+    nextScreen.style.display = "block";
+    requestAnimationFrame(() => nextScreen.classList.add("screen-active"));
+  }
 }
 
 function titleCaseVariant(variant) {
@@ -95,56 +107,99 @@ function renderContent(content) {
 }
 
 /* ════════════════════════════════════
+  FLOW HELPERS
+════════════════════════════════════ */
+
+function getLessonOrder() {
+  const order = LessonFlowConfig.lessonOrder;
+  if (!Array.isArray(order) || order.length === 0) {
+    return [1, 2, 3, 4, 5];
+  }
+  return order;
+}
+
+function getNextScreenNumber(currentScreenNumber) {
+  const order = getLessonOrder();
+  const currentIndex = order.indexOf(currentScreenNumber);
+
+  if (currentIndex === -1) return null;
+  if (currentIndex === order.length - 1) return null;
+
+  return order[currentIndex + 1];
+}
+
+function markLessonComplete() {
+  localStorage.setItem("lessonCompleted", "true");
+}
+
+function goToCheckpoint() {
+  markLessonComplete();
+  const checkpointUrl =
+    LessonFlowConfig.checkpointUrl || "module_assessment.html";
+  window.location.href = checkpointUrl;
+}
+
+function goToNextStep(currentScreenNumber) {
+  const nextScreenNumber = getNextScreenNumber(currentScreenNumber);
+
+  if (nextScreenNumber) {
+    window.Fluentia.goToScreen(nextScreenNumber);
+  } else {
+    goToCheckpoint();
+  }
+}
+
+/* ════════════════════════════════════
   MATCH DATA
 ════════════════════════════════════ */
 
 const matchActivityBank = {
   beginner: {
     "text-text": [
-      { id: 1, left: { type: "text", value: "Airport" },   right: { type: "text", value: "Aeropuerto" } },
-      { id: 2, left: { type: "text", value: "Passport" },  right: { type: "text", value: "Pasaporte" } },
-      { id: 3, left: { type: "text", value: "Suitcase" },  right: { type: "text", value: "Maleta" } },
-      { id: 4, left: { type: "text", value: "Hotel" },     right: { type: "text", value: "Hotel" } },
-      { id: 5, left: { type: "text", value: "Ticket" },    right: { type: "text", value: "Billete" } },
+      { id: 1, left: { type: "text", value: "Airport" }, right: { type: "text", value: "Aeropuerto" } },
+      { id: 2, left: { type: "text", value: "Passport" }, right: { type: "text", value: "Pasaporte" } },
+      { id: 3, left: { type: "text", value: "Suitcase" }, right: { type: "text", value: "Maleta" } },
+      { id: 4, left: { type: "text", value: "Hotel" }, right: { type: "text", value: "Hotel" } },
+      { id: 5, left: { type: "text", value: "Ticket" }, right: { type: "text", value: "Billete" } },
     ],
     "text-image": [
-      { id: 1, left: { type: "text", value: "Airport" },  right: { type: "image", value: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=300&q=80", alt: "Airport" } },
+      { id: 1, left: { type: "text", value: "Airport" }, right: { type: "image", value: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=300&q=80", alt: "Airport" } },
       { id: 2, left: { type: "text", value: "Passport" }, right: { type: "image", value: "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?auto=format&fit=crop&w=300&q=80", alt: "Passport" } },
       { id: 3, left: { type: "text", value: "Suitcase" }, right: { type: "image", value: "https://images.unsplash.com/photo-1542296332-2e4473faf563?auto=format&fit=crop&w=300&q=80", alt: "Suitcase" } },
-      { id: 4, left: { type: "text", value: "Hotel" },    right: { type: "image", value: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=300&q=80", alt: "Hotel" } },
-      { id: 5, left: { type: "text", value: "Ticket" },   right: { type: "image", value: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=300&q=80", alt: "Ticket" } },
+      { id: 4, left: { type: "text", value: "Hotel" }, right: { type: "image", value: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=300&q=80", alt: "Hotel" } },
+      { id: 5, left: { type: "text", value: "Ticket" }, right: { type: "image", value: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=300&q=80", alt: "Ticket" } },
     ],
   },
   intermediate: {
     "text-text": [
       { id: 1, left: { type: "text", value: "Boarding Pass" }, right: { type: "text", value: "Pase de abordar" } },
-      { id: 2, left: { type: "text", value: "Reservation" },   right: { type: "text", value: "Reservación" } },
-      { id: 3, left: { type: "text", value: "Luggage" },       right: { type: "text", value: "Equipaje" } },
-      { id: 4, left: { type: "text", value: "Taxi" },          right: { type: "text", value: "Taxi" } },
-      { id: 5, left: { type: "text", value: "Map" },           right: { type: "text", value: "Mapa" } },
+      { id: 2, left: { type: "text", value: "Reservation" }, right: { type: "text", value: "Reservación" } },
+      { id: 3, left: { type: "text", value: "Luggage" }, right: { type: "text", value: "Equipaje" } },
+      { id: 4, left: { type: "text", value: "Taxi" }, right: { type: "text", value: "Taxi" } },
+      { id: 5, left: { type: "text", value: "Map" }, right: { type: "text", value: "Mapa" } },
     ],
     "text-audio": [
-      { id: 1, left: { type: "text", value: "Airport" },  right: { type: "audio", value: "Aeropuerto" } },
+      { id: 1, left: { type: "text", value: "Airport" }, right: { type: "audio", value: "Aeropuerto" } },
       { id: 2, left: { type: "text", value: "Passport" }, right: { type: "audio", value: "Pasaporte" } },
       { id: 3, left: { type: "text", value: "Suitcase" }, right: { type: "audio", value: "Maleta" } },
-      { id: 4, left: { type: "text", value: "Hotel" },    right: { type: "audio", value: "Hotel" } },
-      { id: 5, left: { type: "text", value: "Ticket" },   right: { type: "audio", value: "Billete" } },
+      { id: 4, left: { type: "text", value: "Hotel" }, right: { type: "audio", value: "Hotel" } },
+      { id: 5, left: { type: "text", value: "Ticket" }, right: { type: "audio", value: "Billete" } },
     ],
   },
   advanced: {
     "text-image": [
       { id: 1, left: { type: "text", value: "Boarding Pass" }, right: { type: "image", value: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=300&q=80", alt: "Boarding pass" } },
-      { id: 2, left: { type: "text", value: "Reservation" },   right: { type: "image", value: "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?auto=format&fit=crop&w=300&q=80", alt: "Reservation" } },
-      { id: 3, left: { type: "text", value: "Luggage" },       right: { type: "image", value: "https://images.unsplash.com/photo-1542296332-2e4473faf563?auto=format&fit=crop&w=300&q=80", alt: "Luggage" } },
-      { id: 4, left: { type: "text", value: "Taxi" },          right: { type: "image", value: "https://images.unsplash.com/photo-1511527844068-006b95d162c2?auto=format&fit=crop&w=300&q=80", alt: "Taxi" } },
-      { id: 5, left: { type: "text", value: "Map" },           right: { type: "image", value: "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=300&q=80", alt: "Map" } },
+      { id: 2, left: { type: "text", value: "Reservation" }, right: { type: "image", value: "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?auto=format&fit=crop&w=300&q=80", alt: "Reservation" } },
+      { id: 3, left: { type: "text", value: "Luggage" }, right: { type: "image", value: "https://images.unsplash.com/photo-1542296332-2e4473faf563?auto=format&fit=crop&w=300&q=80", alt: "Luggage" } },
+      { id: 4, left: { type: "text", value: "Taxi" }, right: { type: "image", value: "https://images.unsplash.com/photo-1511527844068-006b95d162c2?auto=format&fit=crop&w=300&q=80", alt: "Taxi" } },
+      { id: 5, left: { type: "text", value: "Map" }, right: { type: "image", value: "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=300&q=80", alt: "Map" } },
     ],
     "text-audio": [
       { id: 1, left: { type: "text", value: "Boarding Pass" }, right: { type: "audio", value: "Pase de abordar" } },
-      { id: 2, left: { type: "text", value: "Reservation" },   right: { type: "audio", value: "Reservación" } },
-      { id: 3, left: { type: "text", value: "Luggage" },       right: { type: "audio", value: "Equipaje" } },
-      { id: 4, left: { type: "text", value: "Taxi" },          right: { type: "audio", value: "Taxi" } },
-      { id: 5, left: { type: "text", value: "Map" },           right: { type: "audio", value: "Mapa" } },
+      { id: 2, left: { type: "text", value: "Reservation" }, right: { type: "audio", value: "Reservación" } },
+      { id: 3, left: { type: "text", value: "Luggage" }, right: { type: "audio", value: "Equipaje" } },
+      { id: 4, left: { type: "text", value: "Taxi" }, right: { type: "audio", value: "Taxi" } },
+      { id: 5, left: { type: "text", value: "Map" }, right: { type: "audio", value: "Mapa" } },
     ],
   },
 };
@@ -156,46 +211,51 @@ const matchActivityBank = {
 const readingActivityBank = {
   beginner: {
     "vocab-support": {
-      passage: "María packs her suitcase and passport for her trip. At the airport, she checks in and gets her boarding pass. She then takes a taxi to her hotel.",
+      passage:
+        "María packs her suitcase and passport for her trip. At the airport, she checks in and gets her boarding pass. She then takes a taxi to her hotel.",
       questions: [
-        { q: "What does María pack for her trip?",  options: ["A passport", "A bicycle", "A sandwich"],           answer: 0 },
-        { q: "Where does María go first?",           options: ["The airport", "The beach", "The train station"],   answer: 0 },
-        { q: "How does she get to the hotel?",       options: ["Taxi", "Boat", "Bus"],                             answer: 0 },
+        { q: "What does María pack for her trip?", options: ["A passport", "A bicycle", "A sandwich"], answer: 0 },
+        { q: "Where does María go first?", options: ["The airport", "The beach", "The train station"], answer: 0 },
+        { q: "How does she get to the hotel?", options: ["Taxi", "Boat", "Bus"], answer: 0 },
       ],
     },
     "basic-comprehension": {
-      passage: "María is excited for her first trip abroad. She packs warm-weather clothes, her passport, and a camera. After arriving at the airport, she checks in and receives her boarding pass.",
+      passage:
+        "María is excited for her first trip abroad. She packs warm-weather clothes, her passport, and a camera. After arriving at the airport, she checks in and receives her boarding pass.",
       questions: [
-        { q: "How does María feel about her trip?",   options: ["Excited", "Angry", "Bored"],                       answer: 0 },
-        { q: "What does she receive at the airport?", options: ["A room key", "A boarding pass", "A map"],          answer: 1 },
-        { q: "What does she pack?",                  options: ["Passport and camera", "Laptop and book", "Shoes only"], answer: 0 },
+        { q: "How does María feel about her trip?", options: ["Excited", "Angry", "Bored"], answer: 0 },
+        { q: "What does she receive at the airport?", options: ["A room key", "A boarding pass", "A map"], answer: 1 },
+        { q: "What does she pack?", options: ["Passport and camera", "Laptop and book", "Shoes only"], answer: 0 },
       ],
     },
   },
   intermediate: {
     "standard-comprehension": {
-      passage: "María is planning her first trip abroad. She packs carefully and arrives early at the airport. She checks in, gets her boarding pass, and later takes a taxi to her hotel, where the receptionist greets her warmly.",
+      passage:
+        "María is planning her first trip abroad. She packs carefully and arrives early at the airport. She checks in, gets her boarding pass, and later takes a taxi to her hotel, where the receptionist greets her warmly.",
       questions: [
-        { q: "Why does María arrive early?",              options: ["To avoid being late", "To eat lunch", "To buy shoes"],   answer: 0 },
-        { q: "Who greets María at the hotel?",            options: ["The pilot", "The receptionist", "Her cousin"],          answer: 1 },
+        { q: "Why does María arrive early?", options: ["To avoid being late", "To eat lunch", "To buy shoes"], answer: 0 },
+        { q: "Who greets María at the hotel?", options: ["The pilot", "The receptionist", "Her cousin"], answer: 1 },
         { q: "What happens after she gets her boarding pass?", options: ["She goes home", "She takes a taxi later", "She loses her bag"], answer: 1 },
       ],
     },
     "detail-hunt": {
-      passage: "After a smooth flight, María arrives in a new city. She takes a taxi from the airport to her hotel. At the front desk, the receptionist gives her a room key and directions to a nearby café.",
+      passage:
+        "After a smooth flight, María arrives in a new city. She takes a taxi from the airport to her hotel. At the front desk, the receptionist gives her a room key and directions to a nearby café.",
       questions: [
-        { q: "How does María travel from the airport?", options: ["Taxi", "Train", "Subway"],                           answer: 0 },
-        { q: "What does the receptionist give her?",    options: ["Passport", "A room key", "Plane ticket"],            answer: 1 },
-        { q: "What extra help does María receive?",     options: ["Weather report", "Café directions", "Museum tickets"], answer: 1 },
+        { q: "How does María travel from the airport?", options: ["Taxi", "Train", "Subway"], answer: 0 },
+        { q: "What does the receptionist give her?", options: ["Passport", "A room key", "Plane ticket"], answer: 1 },
+        { q: "What extra help does María receive?", options: ["Weather report", "Café directions", "Museum tickets"], answer: 1 },
       ],
     },
   },
   advanced: {
-    "inference": {
-      passage: "Although María had prepared well for her trip, she still felt a little nervous stepping into a completely unfamiliar airport. However, after checking in smoothly and being welcomed kindly at her hotel, she began to relax and enjoy the experience.",
+    inference: {
+      passage:
+        "Although María had prepared well for her trip, she still felt a little nervous stepping into a completely unfamiliar airport. However, after checking in smoothly and being welcomed kindly at her hotel, she began to relax and enjoy the experience.",
       questions: [
-        { q: "Why was María nervous at first?",       options: ["She forgot her suitcase", "The airport was unfamiliar", "She missed her flight"],          answer: 1 },
-        { q: "What helped María relax?",              options: ["A friendly and smooth experience", "Sleeping on the plane", "Calling her family"],         answer: 0 },
+        { q: "Why was María nervous at first?", options: ["She forgot her suitcase", "The airport was unfamiliar", "She missed her flight"], answer: 1 },
+        { q: "What helped María relax?", options: ["A friendly and smooth experience", "Sleeping on the plane", "Calling her family"], answer: 0 },
         { q: "What can we infer about María by the end?", options: ["She regrets traveling", "She is more comfortable now", "She wants to leave immediately"], answer: 1 },
       ],
     },
@@ -286,27 +346,30 @@ const roleActivityBank = {
 ════════════════════════════════════ */
 
 const MatchModule = (() => {
-  const wordsRow   = document.getElementById("words-row");
-  const transRow   = document.getElementById("trans-row");
-  const matchBtn   = document.getElementById("match-btn");
-  const matchFb    = document.getElementById("match-feedback");
+  const wordsRow = document.getElementById("words-row");
+  const transRow = document.getElementById("trans-row");
+  const matchBtn = document.getElementById("match-btn");
+  const matchFb = document.getElementById("match-feedback");
   const matchScore = document.getElementById("match-score");
-  const matchProg  = document.getElementById("match-progress");
-  const leftLabel  = document.getElementById("left-row-label");
+  const matchProg = document.getElementById("match-progress");
+  const leftLabel = document.getElementById("left-row-label");
   const rightLabel = document.getElementById("right-row-label");
+  const matchMeta = document.getElementById("match-meta");
 
-  let selectedWord  = null;
+  let selectedWord = null;
   let selectedTrans = null;
-  let matchedCount  = 0;
-  let difficulty    = resolveDifficulty(LessonConfig.difficulty);
-  let variant       = null;
-  let currentSet    = [];
+  let matchedCount = 0;
+  let difficulty = resolveDifficulty(LessonConfig.difficulty);
+  let variant = null;
+  let currentSet = [];
 
   function getVariantLabels(v) {
     return (
-      { "text-text": { left: "Words", right: "Translations" },
+      {
+        "text-text": { left: "Words", right: "Translations" },
         "text-image": { left: "Words", right: "Pictures" },
-        "text-audio": { left: "Words", right: "Audio" } }[v] || { left: "Left", right: "Right" }
+        "text-audio": { left: "Words", right: "Audio" },
+      }[v] || { left: "Left", right: "Right" }
     );
   }
 
@@ -373,15 +436,16 @@ const MatchModule = (() => {
       if (matchedCount === currentSet.length) {
         matchBtn.textContent = "Continue";
         matchBtn.disabled = false;
-        matchBtn.onclick = () => goToScreen("screen-1", "screen-2");
+        matchBtn.onclick = () => goToNextStep(1);
       }
     } else {
       showFeedback(matchFb, "Try again", false);
       selectedWord.classList.add("wrong");
       selectedTrans.classList.add("wrong");
+
       setTimeout(() => {
-        selectedWord.classList.remove("selected", "wrong");
-        selectedTrans.classList.remove("selected", "wrong");
+        if (selectedWord) selectedWord.classList.remove("selected", "wrong");
+        if (selectedTrans) selectedTrans.classList.remove("selected", "wrong");
         selectedWord = null;
         selectedTrans = null;
         matchBtn.disabled = true;
@@ -394,29 +458,38 @@ const MatchModule = (() => {
     transRow.innerHTML = "";
     clearFeedback(matchFb);
 
-    selectedWord  = null;
+    selectedWord = null;
     selectedTrans = null;
-    matchedCount  = 0;
+    matchedCount = 0;
     matchBtn.disabled = true;
     matchBtn.textContent = "Check Matches";
     matchBtn.onclick = checkMatch;
     matchProg.style.width = "0%";
 
-    variant    = pickVariant();
+    variant = pickVariant();
     currentSet = matchActivityBank[difficulty][variant];
     matchScore.textContent = `⭐ 0 / ${currentSet.length} pairs matched`;
 
+    if (matchMeta) {
+      matchMeta.textContent = `Mode: ${titleCaseVariant(variant)} • ${getLevelLabel(difficulty)}`;
+    }
+
     const labels = getVariantLabels(variant);
-    leftLabel.textContent  = labels.left;
+    leftLabel.textContent = labels.left;
     rightLabel.textContent = labels.right;
 
-    shuffle(currentSet).forEach((item) => wordsRow.appendChild(createCard(item, "left")));
-    shuffle(currentSet).forEach((item) => transRow.appendChild(createCard(item, "right")));
+    shuffle(currentSet).forEach((item) =>
+      wordsRow.appendChild(createCard(item, "left"))
+    );
+    shuffle(currentSet).forEach((item) =>
+      transRow.appendChild(createCard(item, "right"))
+    );
   }
 
-  /* Public API */
   return {
-    init() { render(); },
+    init() {
+      render();
+    },
     setDifficulty(level) {
       difficulty = resolveDifficulty(level);
       render();
@@ -430,14 +503,15 @@ const MatchModule = (() => {
 
 const ReadingModule = (() => {
   const passageText = document.getElementById("passage-text");
-  const readBtn     = document.getElementById("read-btn");
-  const readFb      = document.getElementById("read-feedback");
-  const readProg    = document.getElementById("read-progress");
+  const readBtn = document.getElementById("read-btn");
+  const readFb = document.getElementById("read-feedback");
+  const readProg = document.getElementById("read-progress");
+  const readingMeta = document.getElementById("reading-meta");
 
-  let difficulty   = resolveDifficulty(LessonConfig.difficulty);
-  let activitySet  = null;
-  let currentQ     = 0;
-  let selectedAns  = null;
+  let difficulty = resolveDifficulty(LessonConfig.difficulty);
+  let activitySet = null;
+  let currentQ = 0;
+  let selectedAns = null;
 
   function pickVariant() {
     return Object.keys(readingActivityBank[difficulty])[0];
@@ -445,7 +519,7 @@ const ReadingModule = (() => {
 
   function renderQuestion(idx) {
     const q = activitySet.questions[idx];
-    document.getElementById("q-num").textContent   = idx + 1;
+    document.getElementById("q-num").textContent = idx + 1;
     document.getElementById("q-total").textContent = activitySet.questions.length;
     document.getElementById("question-text").textContent = q.q;
 
@@ -461,7 +535,9 @@ const ReadingModule = (() => {
       btn.type = "button";
       btn.textContent = opt;
       btn.onclick = () => {
-        document.querySelectorAll(".answer-btn").forEach((b) => b.classList.remove("selected"));
+        document
+          .querySelectorAll(".answer-btn")
+          .forEach((b) => b.classList.remove("selected"));
         btn.classList.add("selected");
         selectedAns = i;
         readBtn.disabled = false;
@@ -475,15 +551,17 @@ const ReadingModule = (() => {
     showFeedback(readFb, correct ? "Correct!" : "Try again", correct);
 
     const selectedBtn = document.querySelector(".answer-btn.selected");
+
     if (correct) {
       if (selectedBtn) selectedBtn.classList.add("correct");
       currentQ++;
       readProg.style.width = `${(currentQ / activitySet.questions.length) * 100}%`;
+
       setTimeout(() => {
         if (currentQ < activitySet.questions.length) {
           renderQuestion(currentQ);
         } else {
-          goToScreen("screen-2", "screen-3");
+          goToNextStep(2);
         }
       }, 600);
     } else {
@@ -493,16 +571,23 @@ const ReadingModule = (() => {
 
   function render() {
     const variant = pickVariant();
-    activitySet   = readingActivityBank[difficulty][variant];
-    currentQ      = 0;
-    selectedAns   = null;
+    activitySet = readingActivityBank[difficulty][variant];
+    currentQ = 0;
+    selectedAns = null;
     readProg.style.width = "0%";
     passageText.textContent = activitySet.passage;
+
+    if (readingMeta) {
+      readingMeta.textContent = `Mode: ${titleCaseVariant(variant)} • ${getLevelLabel(difficulty)}`;
+    }
+
     renderQuestion(0);
   }
 
   return {
-    init() { render(); },
+    init() {
+      render();
+    },
     setDifficulty(level) {
       difficulty = resolveDifficulty(level);
       render();
@@ -515,21 +600,22 @@ const ReadingModule = (() => {
 ════════════════════════════════════ */
 
 const SentenceModule = (() => {
-  const sentenceQuestion   = document.getElementById("sentence-question");
-  const sentenceWords      = document.getElementById("sentence-words");
-  const sentenceDrop       = document.getElementById("sentence-drop");
-  const sentenceFeedback   = document.getElementById("sentence-feedback");
-  const sentenceBtn        = document.getElementById("sentence-btn");
-  const sentenceProgress   = document.getElementById("sentence-progress");
+  const sentenceQuestion = document.getElementById("sentence-question");
+  const sentenceWords = document.getElementById("sentence-words");
+  const sentenceDrop = document.getElementById("sentence-drop");
+  const sentenceFeedback = document.getElementById("sentence-feedback");
+  const sentenceBtn = document.getElementById("sentence-btn");
+  const sentenceProgress = document.getElementById("sentence-progress");
   const sentenceBuilderArea = document.getElementById("sentence-builder-area");
-  const sentenceFillArea   = document.getElementById("sentence-fill-area");
-  const fillSentenceText   = document.getElementById("fill-sentence-text");
-  const fillOptions        = document.getElementById("fill-options");
+  const sentenceFillArea = document.getElementById("sentence-fill-area");
+  const fillSentenceText = document.getElementById("fill-sentence-text");
+  const fillOptions = document.getElementById("fill-options");
+  const sentenceMeta = document.getElementById("sentence-meta");
 
-  let difficulty       = resolveDifficulty(LessonConfig.difficulty);
-  let variant          = null;
-  let activitySet      = null;
-  let selectedFillAns  = null;
+  let difficulty = resolveDifficulty(LessonConfig.difficulty);
+  let variant = null;
+  let activitySet = null;
+  let selectedFillAns = null;
 
   function pickVariant() {
     return Object.keys(sentenceActivityBank[difficulty])[0];
@@ -537,7 +623,8 @@ const SentenceModule = (() => {
 
   function updateProgress() {
     if (variant === "drag-order") {
-      const pct = (sentenceDrop.children.length / activitySet.words.length) * 100;
+      const pct =
+        (sentenceDrop.children.length / activitySet.words.length) * 100;
       sentenceProgress.style.width = `${pct}%`;
     } else {
       sentenceProgress.style.width = selectedFillAns ? "70%" : "0%";
@@ -546,11 +633,14 @@ const SentenceModule = (() => {
 
   sentenceBtn.onclick = () => {
     if (variant === "drag-order") {
-      const built = [...sentenceDrop.children].map((el) => el.textContent).join(" ");
+      const built = [...sentenceDrop.children]
+        .map((el) => el.textContent)
+        .join(" ");
+
       if (built === activitySet.correct) {
         showFeedback(sentenceFeedback, "Perfect!", true);
         sentenceProgress.style.width = "100%";
-        setTimeout(() => goToScreen("screen-3", "screen-4"), 800);
+        setTimeout(() => goToNextStep(3), 800);
       } else {
         showFeedback(sentenceFeedback, "Try again", false);
         sentenceDrop.classList.add("wrong");
@@ -560,10 +650,12 @@ const SentenceModule = (() => {
       if (selectedFillAns === activitySet.answer) {
         showFeedback(sentenceFeedback, "Perfect!", true);
         sentenceProgress.style.width = "100%";
-        setTimeout(() => goToScreen("screen-3", "screen-4"), 800);
+        setTimeout(() => goToNextStep(3), 800);
       } else {
         showFeedback(sentenceFeedback, "Try again", false);
-        const selectedBtn = document.querySelector("#fill-options .answer-btn.selected");
+        const selectedBtn = document.querySelector(
+          "#fill-options .answer-btn.selected"
+        );
         if (selectedBtn) {
           selectedBtn.classList.add("incorrect");
           setTimeout(() => selectedBtn.classList.remove("incorrect"), 600);
@@ -573,7 +665,7 @@ const SentenceModule = (() => {
   };
 
   function render() {
-    variant     = pickVariant();
+    variant = pickVariant();
     activitySet = sentenceActivityBank[difficulty][variant];
     selectedFillAns = null;
 
@@ -581,13 +673,17 @@ const SentenceModule = (() => {
     sentenceProgress.style.width = "0%";
     sentenceQuestion.textContent = activitySet.question;
 
+    if (sentenceMeta) {
+      sentenceMeta.textContent = `Mode: ${titleCaseVariant(variant)} • ${getLevelLabel(difficulty)}`;
+    }
+
     if (variant === "drag-order") {
       sentenceBuilderArea.style.display = "block";
-      sentenceFillArea.style.display    = "none";
+      sentenceFillArea.style.display = "none";
       sentenceBtn.textContent = "Check Sentence";
 
       sentenceWords.innerHTML = "";
-      sentenceDrop.innerHTML  = "";
+      sentenceDrop.innerHTML = "";
 
       shuffle(activitySet.words).forEach((word) => {
         const el = document.createElement("button");
@@ -608,7 +704,7 @@ const SentenceModule = (() => {
       });
     } else {
       sentenceBuilderArea.style.display = "none";
-      sentenceFillArea.style.display    = "block";
+      sentenceFillArea.style.display = "block";
       sentenceBtn.textContent = "Check Answer";
 
       fillSentenceText.textContent = activitySet.sentence;
@@ -620,7 +716,9 @@ const SentenceModule = (() => {
         btn.type = "button";
         btn.textContent = opt;
         btn.onclick = () => {
-          document.querySelectorAll("#fill-options .answer-btn").forEach((b) => b.classList.remove("selected"));
+          document
+            .querySelectorAll("#fill-options .answer-btn")
+            .forEach((b) => b.classList.remove("selected"));
           btn.classList.add("selected");
           selectedFillAns = opt;
           updateProgress();
@@ -631,7 +729,9 @@ const SentenceModule = (() => {
   }
 
   return {
-    init() { render(); },
+    init() {
+      render();
+    },
     setDifficulty(level) {
       difficulty = resolveDifficulty(level);
       render();
@@ -644,21 +744,26 @@ const SentenceModule = (() => {
 ════════════════════════════════════ */
 
 const RoleModule = (() => {
-  const roleText     = document.getElementById("role-text");
-  const roleInput    = document.getElementById("role-input");
+  const roleText = document.getElementById("role-text");
+  const roleInput = document.getElementById("role-input");
   const roleFeedback = document.getElementById("role-feedback");
-  const roleBtn      = document.getElementById("role-btn");
+  const roleBtn = document.getElementById("role-btn");
+  const roleMeta = document.getElementById("role-meta");
+  const roleProgress = document.getElementById("role-progress");
 
-  let difficulty  = resolveDifficulty(LessonConfig.difficulty);
+  let difficulty = resolveDifficulty(LessonConfig.difficulty);
   let activitySet = null;
 
   roleBtn.onclick = () => {
     const user = roleInput.value.toLowerCase().trim();
-    const accepted = activitySet.acceptable.some((word) => user.includes(word.toLowerCase()));
+    const accepted = activitySet.acceptable.some((word) =>
+      user.includes(word.toLowerCase())
+    );
 
     if (accepted) {
       showFeedback(roleFeedback, "Great response!", true);
-      setTimeout(() => goToScreen("screen-4", "screen-5"), 800);
+      if (roleProgress) roleProgress.style.width = "100%";
+      setTimeout(() => goToNextStep(4), 800);
     } else {
       showFeedback(roleFeedback, "Try again", false);
     }
@@ -666,14 +771,21 @@ const RoleModule = (() => {
 
   function render() {
     const variant = Object.keys(roleActivityBank[difficulty])[0];
-    activitySet   = roleActivityBank[difficulty][variant];
+    activitySet = roleActivityBank[difficulty][variant];
     roleText.textContent = activitySet.prompt;
     roleInput.value = "";
     clearFeedback(roleFeedback);
+
+    if (roleProgress) roleProgress.style.width = "0%";
+    if (roleMeta) {
+      roleMeta.textContent = `Mode: ${titleCaseVariant(variant)} • ${getLevelLabel(difficulty)}`;
+    }
   }
 
   return {
-    init() { render(); },
+    init() {
+      render();
+    },
     setDifficulty(level) {
       difficulty = resolveDifficulty(level);
       render();
@@ -686,15 +798,45 @@ const RoleModule = (() => {
 ════════════════════════════════════ */
 
 const SpeechModule = (() => {
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
 
   function init() {
-    const btn      = document.getElementById("start-record");
-    const result   = document.getElementById("speech-result");
+    const btn = document.getElementById("start-record");
+    const result = document.getElementById("speech-result");
     const micStatus = document.getElementById("mic-status");
+    const skipBtn = document.getElementById("skip-speech");
+    const speechProgress = document.getElementById("speech-progress");
+    const speechMeta = document.getElementById("speech-meta");
+
+    if (!btn || !result || !micStatus || !skipBtn) return;
+
+    if (speechMeta) {
+      speechMeta.textContent = "Final speaking practice before the checkpoint.";
+    }
+
+    if (speechProgress) {
+      speechProgress.style.width = "0%";
+    }
 
     if (!SpeechRecognition) {
-      btn.onclick = () => showFeedback(result, "Speech recognition is not supported in this browser.", false);
+      btn.onclick = () => {
+        showFeedback(
+          result,
+          "Speech recognition is not supported in this browser. Moving forward.",
+          false
+        );
+        if (speechProgress) speechProgress.style.width = "100%";
+        setTimeout(() => {
+          goToNextStep(5);
+        }, 1000);
+      };
+
+      skipBtn.onclick = () => {
+        if (speechProgress) speechProgress.style.width = "100%";
+        goToNextStep(5);
+      };
+
       return;
     }
 
@@ -704,13 +846,16 @@ const SpeechModule = (() => {
 
     function updateMicStatus(active) {
       isListening = active;
+
+      const labelEl = micStatus.querySelector(".mic-label");
+
       if (active) {
         micStatus.classList.add("active");
-        micStatus.querySelector(".mic-label").textContent = "Microphone: On";
+        if (labelEl) labelEl.textContent = "Microphone: On";
         btn.textContent = "Stop Speaking";
       } else {
         micStatus.classList.remove("active");
-        micStatus.querySelector(".mic-label").textContent = "Microphone: Off";
+        if (labelEl) labelEl.textContent = "Microphone: Off";
         btn.textContent = "Start Speaking";
       }
     }
@@ -720,35 +865,46 @@ const SpeechModule = (() => {
         recognition.start();
         updateMicStatus(true);
         result.textContent = "Listening...";
-        result.className   = "feedback show";
+        result.className = "feedback show";
       } else {
         recognition.stop();
         updateMicStatus(false);
       }
     };
 
-    const skipBtn = document.getElementById("skip-speech");
     skipBtn.onclick = () => {
       recognition.stop();
       updateMicStatus(false);
-      showFeedback(result, "Activity skipped", true);
+      showFeedback(result, "Activity skipped. Moving forward...", true);
+      if (speechProgress) speechProgress.style.width = "100%";
       setTimeout(() => {
-        window.Fluentia.goToScreen(1);
-      }, 600);
+        goToNextStep(5);
+      }, 800);
     };
 
     recognition.onresult = (event) => {
       const spoken = event.results[0][0].transcript.toLowerCase();
+
       if (spoken.includes("taxi")) {
-        showFeedback(result, "Great pronunciation!", true);
+        showFeedback(result, "Great pronunciation! Moving forward...", true);
+        if (speechProgress) speechProgress.style.width = "100%";
+        setTimeout(() => {
+          goToNextStep(5);
+        }, 1000);
       } else {
-        showFeedback(result, "Try again", false);
+        showFeedback(result, "Try again before moving on.", false);
       }
+
       updateMicStatus(false);
     };
 
     recognition.onerror = () => {
       updateMicStatus(false);
+      showFeedback(
+        result,
+        "Could not hear you clearly. Try again or skip.",
+        false
+      );
     };
 
     recognition.onend = () => {
@@ -761,9 +917,6 @@ const SpeechModule = (() => {
 
 /* ════════════════════════════════════
   BOOT
-  ─────────────────────────────────────
-  Initialise all modules with the
-  difficulty from LessonConfig.
 ════════════════════════════════════ */
 
 (function boot() {
@@ -779,20 +932,9 @@ const SpeechModule = (() => {
 
 /* ════════════════════════════════════
   PUBLIC API FOR BACKEND INTEGRATION
-  ─────────────────────────────────────
-  After the assessment, the backend can call:
-
-    window.Fluentia.setDifficulty("intermediate");
-
-  This re-initialises all activity modules
-  at the new level without a page reload.
 ════════════════════════════════════ */
 
 window.Fluentia = {
-  /**
-   * Set difficulty for all modules at once.
-   * @param {"beginner"|"intermediate"|"advanced"} level
-   */
   setDifficulty(level) {
     const resolved = resolveDifficulty(level);
     syncLevelBadges(resolved);
@@ -802,24 +944,32 @@ window.Fluentia = {
     RoleModule.setDifficulty(resolved);
   },
 
-  /**
-   * Jump to a specific screen programmatically.
-   * Useful if the backend wants to resume a session mid-lesson.
-   * @param {1|2|3|4|5} screenNumber
-   */
   goToScreen(screenNumber) {
     const screens = ["screen-1", "screen-2", "screen-3", "screen-4", "screen-5"];
-    // Hide all
+
     screens.forEach((id) => {
       const el = document.getElementById(id);
-      el.classList.remove("screen-active");
-      el.style.display = "none";
+      if (el) {
+        el.classList.remove("screen-active");
+        el.style.display = "none";
+      }
     });
-    // Show target
+
     const target = document.getElementById(`screen-${screenNumber}`);
     if (target) {
-      target.style.display = "flex";
+      target.style.display = "block";
       requestAnimationFrame(() => target.classList.add("screen-active"));
     }
+  },
+
+  completeLesson() {
+    goToCheckpoint();
+  },
+
+  getLessonFlow() {
+    return {
+      checkpointUrl: LessonFlowConfig.checkpointUrl || "module_assessment.html",
+      lessonOrder: getLessonOrder(),
+    };
   },
 };

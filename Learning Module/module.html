@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fluentia</title>
+    <title>Fluentia Lesson Module</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
       rel="stylesheet"
     />
 
@@ -15,195 +15,252 @@
   </head>
 
   <body>
-    <!-- SCREEN 1 — MIX & MATCH -->
-    <div id="screen-1" class="screen screen-active">
-      <div class="lesson-card" id="card-match">
-        <div class="top-bar">
-          <button class="btn-back" title="Go back" type="button">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
+    <div class="fd-site lesson-site">
 
-          <div class="progress-wrap">
-            <span class="progress-label">0%</span>
-            <div class="progress-track">
-              <div class="progress-fill" id="match-progress" style="width: 0%"></div>
+      <!-- SCREEN 1 — MIX & MATCH -->
+      <div id="screen-1" class="screen screen-active">
+        <section class="fd-section lesson-shell">
+          <div class="lesson-progress-card">
+            <div class="progress-top-row">
+              <div>
+                <p class="progress-label">Lesson Progress</p>
+              </div>
+              <div class="lesson-top-right">
+                <div class="level-badge" id="match-level-badge">Beginner</div>
+              </div>
             </div>
-            <span class="progress-label">100%</span>
+
+            <div class="progress-bar-track">
+              <div class="progress-bar-fill" id="match-progress" style="width: 0%"></div>
+            </div>
           </div>
 
-          <div class="level-badge" id="match-level-badge">Beginner</div>
-        </div>
+          <div class="lesson-card" id="card-match">
+            <div class="lesson-card-inner">
+              <div class="lesson-header-row">
+                <div class="topic-tag">✈️ Travel</div>
+              </div>
 
-        <div class="lesson-body">
-          <div class="topic-tag">✈️ Travel</div>
-          <div class="activity-type" id="match-activity-type">Mix &amp; Match the vocabulary</div>
-          <div class="activity-meta" id="match-meta"></div>
+              <div class="activity-type" id="match-activity-type">Mix &amp; Match the vocabulary</div>
+              <div class="activity-meta" id="match-meta"></div>
 
-          <div class="score-chip" id="match-score">⭐ 0 / 5 pairs matched</div>
+              <div class="score-chip" id="match-score">⭐ 0 / 5 pairs matched</div>
 
-          <p class="row-label" id="left-row-label">Words</p>
-          <div class="match-grid" id="words-row"></div>
+              <p class="row-label" id="left-row-label">Words</p>
+              <div class="match-grid" id="words-row"></div>
 
-          <p class="row-label" id="right-row-label">Matches</p>
-          <div class="match-grid" id="trans-row"></div>
+              <p class="row-label" id="right-row-label">Matches</p>
+              <div class="match-grid" id="trans-row"></div>
 
-          <div class="feedback" id="match-feedback"></div>
+              <div class="feedback" id="match-feedback"></div>
 
-          <button class="btn-continue" id="match-btn" disabled type="button">Check Matches</button>
-        </div>
+              <button class="fd-btn-dark lesson-action-btn" id="match-btn" disabled type="button">
+                Check Matches
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- SCREEN 2 — READING -->
+      <div id="screen-2" class="screen" style="display: none">
+        <section class="fd-section lesson-shell">
+          <div class="lesson-progress-card">
+            <div class="progress-top-row">
+              <div>
+                <p class="progress-label">Lesson Progress</p>
+              </div>
+              <div class="lesson-top-right">
+                <div class="level-badge" id="read-level-badge">Beginner</div>
+              </div>
+            </div>
+
+            <div class="progress-bar-track">
+              <div class="progress-bar-fill" id="read-progress" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <div class="lesson-card" id="reading-card">
+            <div class="lesson-card-inner">
+              <div class="lesson-header-row">
+                <div class="topic-tag">✈️ Travel</div>
+              </div>
+
+              <div class="activity-type" id="reading-activity-type">Reading Comprehension</div>
+              <div class="activity-meta" id="reading-meta"></div>
+
+              <div class="passage-box" id="passage-text"></div>
+
+              <p class="question-label">
+                Question <span id="q-num">1</span> of <span id="q-total">3</span>
+              </p>
+
+              <p class="question-text" id="question-text"></p>
+
+              <div class="answer-grid" id="answer-grid"></div>
+
+              <div class="feedback" id="read-feedback"></div>
+
+              <button class="fd-btn-dark lesson-action-btn" id="read-btn" disabled type="button">
+                Confirm Answer
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- SCREEN 3 — SENTENCE BUILDER -->
+      <div id="screen-3" class="screen" style="display: none">
+        <section class="fd-section lesson-shell">
+          <div class="lesson-progress-card">
+            <div class="progress-top-row">
+              <div>
+                <p class="progress-label">Lesson Progress</p>
+              </div>
+              <div class="lesson-top-right">
+                <div class="level-badge" id="sentence-level-badge">Beginner</div>
+              </div>
+            </div>
+
+            <div class="progress-bar-track">
+              <div class="progress-bar-fill" id="sentence-progress" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <div class="lesson-card">
+            <div class="lesson-card-inner">
+              <div class="lesson-header-row">
+                <div class="topic-tag">✈️ Travel</div>
+              </div>
+
+              <div class="activity-type" id="sentence-activity-type">Build the Sentence</div>
+              <div class="activity-meta" id="sentence-meta"></div>
+
+              <p class="question-text" id="sentence-question"></p>
+
+              <div id="sentence-builder-area">
+                <p class="row-label">Word Bank</p>
+                <div class="sentence-words" id="sentence-words"></div>
+
+                <p class="row-label">Your Sentence</p>
+                <div class="sentence-drop" id="sentence-drop"></div>
+              </div>
+
+              <div id="sentence-fill-area" style="display: none">
+                <p class="question-text" id="fill-sentence-text"></p>
+                <div class="answer-grid" id="fill-options"></div>
+              </div>
+
+              <div class="feedback" id="sentence-feedback"></div>
+
+              <button class="fd-btn-dark lesson-action-btn" id="sentence-btn" type="button">
+                Check Sentence
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- SCREEN 4 — ROLE PLAY -->
+      <div id="screen-4" class="screen" style="display: none">
+        <section class="fd-section lesson-shell">
+          <div class="lesson-progress-card">
+            <div class="progress-top-row">
+              <div>
+                <p class="progress-label">Lesson Progress</p>
+              </div>
+              <div class="lesson-top-right">
+                <div class="level-badge" id="role-level-badge">Beginner</div>
+              </div>
+            </div>
+
+            <div class="progress-bar-track">
+              <div class="progress-bar-fill" id="role-progress" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <div class="lesson-card">
+            <div class="lesson-card-inner">
+              <div class="lesson-header-row">
+                <div class="topic-tag">✈️ Travel</div>
+              </div>
+
+              <div class="activity-type" id="role-activity-type">Role Play Conversation</div>
+              <div class="activity-meta" id="role-meta"></div>
+
+              <p class="question-text" id="role-text"></p>
+
+              <input
+                type="text"
+                id="role-input"
+                placeholder="Type your response..."
+                class="role-input"
+              />
+
+              <div class="feedback" id="role-feedback"></div>
+
+              <button class="fd-btn-dark lesson-action-btn" id="role-btn" type="button">
+                Submit
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- SCREEN 5 — PRONUNCIATION -->
+      <div id="screen-5" class="screen" style="display: none">
+        <section class="fd-section lesson-shell">
+          <div class="lesson-progress-card">
+            <div class="progress-top-row">
+              <div>
+                <p class="progress-label">Lesson Progress</p>
+              </div>
+              <div class="lesson-top-right">
+                <div class="level-badge" id="speech-level-badge">Beginner</div>
+              </div>
+            </div>
+
+            <div class="progress-bar-track">
+              <div class="progress-bar-fill" id="speech-progress" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <div class="lesson-card">
+            <div class="lesson-card-inner">
+              <div class="lesson-header-row">
+                <div class="topic-tag">🎤 Pronunciation</div>
+              </div>
+
+              <div class="activity-meta" id="speech-meta"></div>
+
+              <p class="question-text" id="speak-text">Say: "Necesito un taxi al hotel"</p>
+
+              <div class="microphone-status" id="mic-status">
+                <span class="mic-indicator"></span>
+                <span class="mic-label">Microphone: Off</span>
+              </div>
+
+              <div class="button-group">
+                <button class="fd-btn-dark lesson-action-btn half" id="start-record" type="button">
+                  Start Speaking
+                </button>
+                <button class="fd-btn-light lesson-light-btn half" id="skip-speech" type="button">
+                  Skip Activity
+                </button>
+              </div>
+
+              <div class="feedback" id="speech-result"></div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
-
-    <!-- SCREEN 2 — READING -->
-    <div id="screen-2" class="screen" style="display: none">
-      <div class="lesson-card" id="reading-card">
-        <div class="top-bar">
-          <button class="btn-back" title="Go back" type="button">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-
-          <div class="progress-wrap">
-            <span class="progress-label">0%</span>
-            <div class="progress-track">
-              <div class="progress-fill" id="read-progress" style="width: 0%"></div>
-            </div>
-            <span class="progress-label">100%</span>
-          </div>
-
-          <div class="level-badge" id="read-level-badge">Beginner</div>
-        </div>
-
-        <div class="lesson-body">
-          <div class="topic-tag">✈️ Travel</div>
-          <div class="activity-type" id="reading-activity-type">Reading Comprehension</div>
-          <div class="activity-meta" id="reading-meta"></div>
-
-          <div class="passage-box" id="passage-text"></div>
-
-          <p class="question-label">
-            Question <span id="q-num">1</span> of <span id="q-total">3</span>
-          </p>
-
-          <p class="question-text" id="question-text"></p>
-
-          <div class="answer-grid" id="answer-grid"></div>
-
-          <div class="feedback" id="read-feedback"></div>
-
-          <button class="btn-continue" id="read-btn" disabled type="button">Confirm Answer</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- SCREEN 3 — SENTENCE BUILDER -->
-    <div id="screen-3" class="screen" style="display: none">
-      <div class="lesson-card">
-        <div class="top-bar">
-          <div class="progress-wrap">
-            <span class="progress-label">0%</span>
-            <div class="progress-track">
-              <div class="progress-fill" id="sentence-progress" style="width: 0%"></div>
-            </div>
-            <span class="progress-label">100%</span>
-          </div>
-          <div class="level-badge" id="sentence-level-badge">Beginner</div>
-        </div>
-
-        <div class="lesson-body">
-          <div class="topic-tag">✈️ Travel</div>
-          <div class="activity-type" id="sentence-activity-type">Build the Sentence</div>
-          <div class="activity-meta" id="sentence-meta"></div>
-
-          <p class="question-text" id="sentence-question"></p>
-
-          <div id="sentence-builder-area">
-            <p class="row-label">Word Bank</p>
-            <div class="sentence-words" id="sentence-words"></div>
-            <p class="row-label">Your Sentence</p>
-            <div class="sentence-drop" id="sentence-drop"></div>
-          </div>
-
-          <div id="sentence-fill-area" style="display: none">
-            <p class="question-text" id="fill-sentence-text"></p>
-            <div class="answer-grid" id="fill-options"></div>
-          </div>
-
-          <div class="feedback" id="sentence-feedback"></div>
-
-          <button class="btn-continue" id="sentence-btn" type="button">Check Sentence</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- SCREEN 4 — ROLE PLAY -->
-    <div id="screen-4" class="screen" style="display: none">
-      <div class="lesson-card">
-        <div class="top-bar">
-          <div class="progress-wrap">
-            <span class="progress-label">0%</span>
-            <div class="progress-track">
-              <div class="progress-fill" id="role-progress" style="width: 0%"></div>
-            </div>
-            <span class="progress-label">100%</span>
-          </div>
-          <div class="level-badge" id="role-level-badge">Beginner</div>
-        </div>
-
-        <div class="lesson-body">
-          <div class="topic-tag">✈️ Travel</div>
-          <div class="activity-type" id="role-activity-type">Role Play Conversation</div>
-          <div class="activity-meta" id="role-meta"></div>
-
-          <p class="question-text" id="role-text"></p>
-
-          <input type="text" id="role-input" placeholder="Type your response..." class="role-input" />
-
-          <div class="feedback" id="role-feedback"></div>
-
-          <button class="btn-continue" id="role-btn" type="button">Submit</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- SCREEN 5 — PRONUNCIATION -->
-    <div id="screen-5" class="screen" style="display: none">
-      <div class="lesson-card">
-        <div class="top-bar">
-          <div class="progress-wrap">
-            <span class="progress-label">0%</span>
-            <div class="progress-track">
-              <div class="progress-fill" id="speech-progress" style="width: 0%"></div>
-            </div>
-            <span class="progress-label">100%</span>
-          </div>
-          <div class="level-badge" id="speech-level-badge">Beginner</div>
-        </div>
-
-        <div class="lesson-body">
-          <div class="topic-tag">🎤 Pronunciation</div>
-          <div class="activity-meta" id="speech-meta"></div>
-
-          <p class="question-text" id="speak-text">Say: "Necesito un taxi al hotel"</p>
-
-          <div class="microphone-status" id="mic-status">
-            <span class="mic-indicator"></span>
-            <span class="mic-label">Microphone: Off</span>
-          </div>
-
-          <div class="button-group">
-            <button class="btn-continue" id="start-record" type="button">Start Speaking</button>
-            <button class="btn-skip" id="skip-speech" type="button">Skip Activity</button>
-          </div>
-
-          <div class="feedback" id="speech-result"></div>
-        </div>
-      </div>
-    </div>
-
+    <script>
+  window.LessonFlowConfig = {
+    checkpointUrl: "module_assessment.html",
+    lessonOrder: [1, 2, 3, 4, 5]
+  };
+</script>
     <script src="script.js"></script>
   </body>
 </html>
