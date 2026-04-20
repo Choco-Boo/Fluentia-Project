@@ -7,12 +7,42 @@ const steps = [
     subtitle: 'Please select as many options as you like, you can always change these later.',
     type: 'multi',
     options: [
-      { title: 'Traveling', description: 'Speak confidently while traveling abroad', icon: 'TR' },
-      { title: 'Work / Business', description: 'Use language in meetings and emails', icon: 'WK' },
-      { title: 'School', description: 'Improve grades and class participation', icon: 'SC' },
-      { title: 'Friends & Family', description: 'Communicate in daily personal conversations', icon: 'FF' },
-      { title: 'Culture / Media', description: 'Enjoy movies, music, and articles', icon: 'CM' },
-      { title: 'Just for fun', description: 'Learn casually and stay mentally active', icon: 'FN' }
+      {
+        title: 'Traveling',
+        description: 'Handle airport, transport, and hotel conversations confidently.',
+        icon: 'TR',
+        image: '/assets/onboarding/topic-travel.svg'
+      },
+      {
+        title: 'Work / Business',
+        description: 'Use better English or Spanish in meetings, updates, and emails.',
+        icon: 'WK',
+        image: '/assets/onboarding/topic-work.svg'
+      },
+      {
+        title: 'School',
+        description: 'Improve your English for class presentations, writing, and exams.',
+        icon: 'SC',
+        image: '/assets/onboarding/topic-school.svg'
+      },
+      {
+        title: 'Friends & Family',
+        description: 'Communicate naturally in day-to-day personal conversations.',
+        icon: 'FF',
+        image: '/assets/onboarding/topic-family.svg'
+      },
+      {
+        title: 'Culture / Media',
+        description: 'Understand movies, shows, podcasts, and social content better.',
+        icon: 'CM',
+        image: '/assets/onboarding/topic-culture.svg'
+      },
+      {
+        title: 'Just for fun',
+        description: 'Learn casually and keep your brain active with practical practice.',
+        icon: 'FN',
+        image: '/assets/onboarding/topic-fun.svg'
+      }
     ]
   },
   {
@@ -39,6 +69,18 @@ const steps = [
       { title: 'Intermediate', description: 'I can hold simple conversations', icon: 'B1' },
       { title: 'Advanced', description: 'I can communicate with confidence', icon: 'C1' },
       { title: 'Not sure', description: 'Help me find my level', icon: '?' }
+    ]
+  },
+  {
+    key: 'language',
+    title: 'Which language do you want to learn first?',
+    subtitle: 'Choose your target language. You can add another language later.',
+    type: 'single',
+    options: [
+      { title: 'English', description: 'Global communication for work, school, and travel.', icon: 'EN', image: '/assets/onboarding/lang-english.svg' },
+      { title: 'Spanish', description: 'Practical for travel, business, and daily conversation.', icon: 'ES', image: '/assets/onboarding/lang-spanish.svg' },
+      { title: 'Portuguese', description: 'Useful for Brazil, Portugal, and global communities.', icon: 'PT', image: '/assets/onboarding/lang-portuguese.svg' },
+      { title: 'French', description: 'Build confidence for academics, travel, and culture.', icon: 'FR', image: '/assets/onboarding/lang-french.svg' }
     ]
   },
   {
@@ -85,6 +127,7 @@ function OnboardingPage({ goToDashboard }) {
     goals: [],
     ageRange: '',
     level: '',
+    language: '',
     studyTime: '',
     focusSkills: []
   });
@@ -209,6 +252,7 @@ function OnboardingPage({ goToDashboard }) {
             <p><strong>Goals:</strong> {formData.goals.join(', ')}</p>
             <p><strong>Age:</strong> {formData.ageRange}</p>
             <p><strong>Level:</strong> {formData.level}</p>
+            <p><strong>Language:</strong> {formData.language}</p>
             <p><strong>Study time:</strong> {formData.studyTime}</p>
             <p><strong>Focus skills:</strong> {formData.focusSkills.join(', ')}</p>
           </div>
@@ -292,7 +336,13 @@ function OnboardingPage({ goToDashboard }) {
               onClick={() => handleOptionClick(option.title)}
             >
               <div className="option-left">
-                <div className="option-icon">{option.icon}</div>
+                {option.image ? (
+                  <div className="option-image-wrap">
+                    <img src={option.image} alt="" className="option-image" />
+                  </div>
+                ) : (
+                  <div className="option-icon">{option.icon}</div>
+                )}
                 <div>
                   <p className="option-title">{option.title}</p>
                   <p className="option-description">{option.description}</p>
