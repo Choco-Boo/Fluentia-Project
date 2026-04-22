@@ -1,4 +1,4 @@
-function LessonContentTypeCard({ item }) {
+function LessonContentTypeCard({ item, onAction }) {
   return (
     <article className="fd-pro-type-card">
       {item?.image ? (
@@ -9,7 +9,7 @@ function LessonContentTypeCard({ item }) {
       <span>{item?.icon ?? '📘'}</span>
       <h3>{item?.title ?? 'Untitled'}</h3>
       <p>{item?.detail ?? 'No details available.'}</p>
-      <button type="button">{item?.cta ?? 'Open'}</button>
+      <button type="button" onClick={() => onAction?.(item)}>{item?.cta ?? 'Open'}</button>
     </article>
   );
 }

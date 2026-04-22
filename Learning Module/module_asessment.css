@@ -6,26 +6,26 @@
 
 :root {
   --fd-bg: #eff6f3;
-  --fd-surface: rgba(248, 255, 252, 0.88);
-  --fd-card: #ffffff;
+  --fd-surface: rgba(248, 255, 252, 0.84);
+  --fd-card: #f9fdfb;
   --fd-line: #d4e8df;
-  --fd-text: #183b35;
-  --fd-text-soft: #5d7d75;
+  --fd-text: #0d1526;
+  --fd-text-soft: #44546f;
   --fd-blue: #4d84ff;
-  --fd-blue-strong: #3b6fe2;
+  --fd-blue-strong: #2dcd9f;
   --fd-green: #2dcd9f;
   --fd-green-soft: #eafaf5;
   --fd-purple-soft: #f4efff;
   --fd-danger-soft: #fff1f1;
   --fd-warning-soft: #fff7e9;
-  --fd-radius-xl: 28px;
-  --fd-radius-lg: 24px;
-  --fd-radius-md: 18px;
-  --fd-radius-sm: 14px;
-  --fd-shadow-soft: 0 14px 34px rgba(27, 42, 82, 0.08);
-  --fd-shadow-hover: 0 18px 40px rgba(27, 42, 82, 0.12);
-  --fd-shadow-pill: 0 10px 24px rgba(77, 132, 255, 0.28);
-  --fd-focus: 0 0 0 4px rgba(77, 132, 255, 0.16);
+  --fd-radius-xl: 24px;
+  --fd-radius-lg: 18px;
+  --fd-radius-md: 14px;
+  --fd-radius-sm: 12px;
+  --fd-shadow-soft: 0 14px 34px rgba(23, 62, 56, 0.09);
+  --fd-shadow-hover: 0 20px 42px rgba(24, 64, 56, 0.15);
+  --fd-shadow-pill: 0 10px 24px rgba(45, 186, 151, 0.27);
+  --fd-focus: 0 0 0 4px rgba(57, 195, 156, 0.24);
 }
 
 html,
@@ -33,11 +33,12 @@ body {
   margin: 0;
   min-height: 100%;
   background:
-    radial-gradient(900px 500px at -10% -10%, rgba(45, 205, 159, 0.16) 0%, transparent 60%),
-    radial-gradient(980px 520px at 110% -15%, rgba(217, 140, 244, 0.2) 0%, transparent 62%),
+    radial-gradient(860px 500px at 12% 110%, rgba(141, 221, 190, 0.24) 0%, rgba(141, 221, 190, 0) 62%),
+    radial-gradient(1100px 600px at -10% -10%, rgba(121, 198, 238, 0.33) 0%, rgba(121, 198, 238, 0) 60%),
+    radial-gradient(980px 520px at 110% -15%, rgba(217, 140, 244, 0.28) 0%, rgba(217, 140, 244, 0) 62%),
     var(--fd-bg);
   color: var(--fd-text);
-  font-family: "Outfit", "Segoe UI", sans-serif;
+  font-family: "Outfit", "Space Grotesk", "Avenir Next", "Segoe UI", sans-serif;
 }
 
 body {
@@ -56,8 +57,9 @@ textarea:focus-visible {
 }
 
 .checkpoint-site {
-  width: 100%;
+  width: min(100%, 1480px);
   min-height: 100vh;
+  margin: 0 auto;
   padding: clamp(10px, 1.8vw, 22px);
   display: flex;
   flex-direction: column;

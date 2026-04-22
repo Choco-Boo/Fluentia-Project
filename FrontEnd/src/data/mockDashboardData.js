@@ -16,10 +16,21 @@ export const mockDashboardData = {
   },
   lessons: {
     contentTypes: [
-      { id: 'exercises', title: 'Exercises', detail: 'Targeted drills for daily practice.', icon: '✍', cta: 'Open', image: '/assets/onboarding/topic-school.svg' },
-      { id: 'quizzes', title: 'Quizzes', detail: 'Quick checks to validate retention.', icon: '🧠', cta: 'Start', image: '/assets/onboarding/topic-fun.svg' },
-      { id: 'exams', title: 'Exams', detail: 'Milestone tests for level progress.', icon: '📝', cta: 'Take', image: '/assets/onboarding/topic-work.svg' },
-      { id: 'lectures', title: 'Lectures', detail: 'Guided lesson explainers.', icon: '🎧', cta: 'Watch', image: '/assets/onboarding/topic-culture.svg' }
+      { id: 'practice', title: 'Practice', detail: 'Build fluency with focused vocab, speaking, and reading drills.', icon: '✍', cta: 'Open', image: '/assets/onboarding/topic-fun.svg' },
+      { id: 'courses', title: 'Courses', detail: 'Follow your full lecture modules and track progress by topic.', icon: '🎓', cta: 'View Modules', image: '/assets/onboarding/topic-school.svg' }
+    ],
+    practiceTracks: [
+      { id: 'p1', title: 'Vocabulary', detail: 'Review high-frequency words and phrase sets.', cta: 'Practice', image: '/assets/onboarding/topic-family.svg' },
+      { id: 'p2', title: 'Speaking', detail: 'AI-led speaking prompts to improve fluency and confidence.', cta: 'Start Speaking', image: '/assets/onboarding/topic-culture.svg' },
+      { id: 'p3', title: 'Reading', detail: 'Short reading exercises with comprehension checks.', cta: 'Read', image: '/assets/onboarding/topic-travel.svg' }
+    ],
+    courseModules: [
+      { id: 'c1', moduleKey: 'basic-communication', title: 'Basic Communication', lectures: 6, progressPercent: 42, image: '/assets/onboarding/topic-fun.svg' },
+      { id: 'c2', moduleKey: 'travel', title: 'Travel', lectures: 6, progressPercent: 58, image: '/assets/onboarding/topic-travel.svg' },
+      { id: 'c3', moduleKey: 'restaurant', title: 'Restaurant', lectures: 6, progressPercent: 20, image: '/assets/onboarding/topic-family.svg' },
+      { id: 'c4', moduleKey: 'workplace', title: 'Workplace', lectures: 6, progressPercent: 66, image: '/assets/onboarding/topic-work.svg' },
+      { id: 'c5', moduleKey: 'shopping', title: 'Shopping', lectures: 6, progressPercent: 35, image: '/assets/onboarding/topic-school.svg' },
+      { id: 'c6', moduleKey: 'health-emergencies', title: 'Health & Emergencies', lectures: 6, progressPercent: 12, image: '/assets/onboarding/topic-culture.svg' }
     ],
     current: [
       { id: 'l1', title: 'Travel Dialogues: Airport Check-in', type: 'Speaking', progressPercent: 68, image: '/assets/onboarding/topic-travel.svg' },

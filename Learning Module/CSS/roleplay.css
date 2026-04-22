@@ -1,0 +1,15 @@
+.role-input {
+  width: 100%;
+  padding: 16px 18px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  border-radius: 18px;
+  color: #1c3b4f;
+  font-size: 1rem;
+  border: 1px solid var(--fd-line);
+  background: #fff;
+}
+
+.role-input::placeholder {
+  color: #7f94a9;
+}

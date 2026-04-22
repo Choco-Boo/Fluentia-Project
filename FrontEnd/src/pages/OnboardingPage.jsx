@@ -1,6 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
-const steps = [
+const ONBOARDING_STEPS_API_URL = '/api/onboarding/steps';
+const ONBOARDING_STEPS_FALLBACK_URL = '/data/onboarding-steps.json';
+
+const DEFAULT_STEPS = [
   {
     key: 'goals',
     title: 'What are your learning goals?',
@@ -113,7 +116,24 @@ const steps = [
   }
 ];
 
-function OnboardingPage({ goToDashboard }) {
+function buildInitialFormData(stepList) {
+  return stepList.reduce((acc, step) => {
+    acc[step.key] = step.type === 'multi' ? [] : '';
+    return acc;
+  }, {});
+}
+
+function formatSummaryValue(value) {
+  if (Array.isArray(value)) return value.length ? value.join(', ') : '—';
+  return value || '—';
+}
+
+function OnboardingPage({ goToAssessment }) {
+  const [steps, setSteps] = useState(DEFAULT_STEPS);
+  const [stepIndex, setStepIndex] = useState(0);
+  const [showSummary, setShowSummary] = useState(false);
+  const [formData, setFormData] = useState(() => buildInitialFormData(DEFAULT_STEPS));
+
   useEffect(() => {
     document.body.className = 'fd-body';
 
@@ -121,19 +141,53 @@ function OnboardingPage({ goToDashboard }) {
       document.body.className = '';
     };
   }, []);
-  const [stepIndex, setStepIndex] = useState(0);
-  const [showSummary, setShowSummary] = useState(false);
-  const [formData, setFormData] = useState({
-    goals: [],
-    ageRange: '',
-    level: '',
-    language: '',
-    studyTime: '',
-    focusSkills: []
-  });
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadSteps() {
+      const sources = [ONBOARDING_STEPS_API_URL, ONBOARDING_STEPS_FALLBACK_URL];
+      let loadedSteps = null;
+
+      for (const url of sources) {
+        try {
+          const response = await fetch(url, { headers: { Accept: 'application/json' } });
+          if (!response.ok) continue;
+          const payload = await response.json();
+          if (Array.isArray(payload) && payload.length > 0) {
+            loadedSteps = payload;
+            break;
+          }
+        } catch {
+          // Try next source.
+        }
+      }
+
+      if (!isMounted || !loadedSteps) return;
+
+      setSteps(loadedSteps);
+      setFormData((current) => ({ ...buildInitialFormData(loadedSteps), ...current }));
+      setStepIndex((current) => Math.min(current, loadedSteps.length - 1));
+    }
+
+    loadSteps();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const currentStep = steps[stepIndex];
-  const progress = ((stepIndex + 1) / steps.length) * 100;
+
+  const progress = useMemo(() => {
+    if (!steps.length) return 0;
+    return ((stepIndex + 1) / steps.length) * 100;
+  }, [stepIndex, steps.length]);
+
+  if (!currentStep) {
+    return null;
+  }
+
   const selectedValue = formData[currentStep.key];
   const selectedCount = Array.isArray(selectedValue) ? selectedValue.length : selectedValue ? 1 : 0;
 
@@ -153,7 +207,7 @@ function OnboardingPage({ goToDashboard }) {
       return;
     }
 
-    const currentValues = formData[key];
+    const currentValues = formData[key] || [];
 
     if (currentValues.includes(optionTitle)) {
       setFormData({
@@ -249,17 +303,16 @@ function OnboardingPage({ goToDashboard }) {
           <p className="onboarding-subtitle">Review your answers before starting your placement test.</p>
 
           <div className="summary-box">
-            <p><strong>Goals:</strong> {formData.goals.join(', ')}</p>
-            <p><strong>Age:</strong> {formData.ageRange}</p>
-            <p><strong>Level:</strong> {formData.level}</p>
-            <p><strong>Language:</strong> {formData.language}</p>
-            <p><strong>Study time:</strong> {formData.studyTime}</p>
-            <p><strong>Focus skills:</strong> {formData.focusSkills.join(', ')}</p>
+            {steps.map((step) => (
+              <p key={step.key}>
+                <strong>{step.title}:</strong> {formatSummaryValue(formData[step.key])}
+              </p>
+            ))}
           </div>
 
           <div className="nav-buttons">
             <button type="button" className="back-btn" onClick={handleBack}>Back</button>
-            <button type="button" className="continue-btn" onClick={goToDashboard}>Go to dashboard</button>
+            <button type="button" className="continue-btn" onClick={goToAssessment}>Start assessment</button>
           </div>
         </div>
       </div>
@@ -275,7 +328,7 @@ function OnboardingPage({ goToDashboard }) {
         </div>
 
         <div className="progress-track">
-          <div className="progress-fill" style={{ width: progress + '%' }}></div>
+          <div className="progress-fill" style={{ width: `${progress}%` }}></div>
         </div>
 
         <h2>{currentStep.title}</h2>

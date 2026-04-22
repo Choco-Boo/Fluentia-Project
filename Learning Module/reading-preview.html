@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reading Module Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="./CSS/base.css" />
+  <link rel="stylesheet" href="./CSS/layout.css" />
+  <link rel="stylesheet" href="./CSS/components.css" />
+  <link rel="stylesheet" href="./CSS/reading.css" />
+</head>
+<body>
+  <div class="lesson-site">
+    <header class="fd-topbar">
+      <div class="fd-logo">Fluentia Reading Preview</div>
+      <div class="fd-topbar-actions">
+        <button class="fd-btn-light" type="button" onclick="window.history.back()">Back</button>
+        <button class="fd-btn-dark" type="button" onclick="window.location.reload()">Restart</button>
+      </div>
+    </header>
+    <main id="lesson-root"></main>
+    <div id="preview-error" style="display:none; color:#fff; background:#8a1f1f; padding:12px 14px; border-radius:10px; font-family:Outfit,sans-serif;"></div>
+  </div>
+
+  <script type="module">
+    import { sampleLesson } from "./JS/data/sampleLesson.js";
+    import { resolveDifficulty, resolveActivityVariant, getLevelLabel } from "./JS/utils/helpers.js";
+    import { readingTemplate } from "./JS/templates/readingTemplate.js";
+    import { initReading } from "./JS/modules/readingModule.js";
+
+    const root = document.getElementById("lesson-root");
+    const errorBox = document.getElementById("preview-error");
+
+    try {
+      const lessonDifficulty = resolveDifficulty(sampleLesson.difficulty);
+      const readingBase = sampleLesson.activities.find((activity) => activity.type === "reading");
+      const readingActivity = resolveActivityVariant(readingBase, lessonDifficulty);
+      const difficultyLabel = getLevelLabel(readingActivity.resolvedDifficulty || lessonDifficulty);
+
+      root.innerHTML = readingTemplate(readingActivity, 0, 1, difficultyLabel, sampleLesson.topicTag);
+      const screen = document.getElementById("screen-0");
+      if (screen) screen.classList.add("screen-active");
+
+      initReading(readingActivity, 0, () => {
+        alert("Reading module complete");
+      });
+    } catch (err) {
+      errorBox.style.display = "block";
+      errorBox.textContent = `Reading preview failed: ${err?.message || err}`;
+      console.error(err);
+    }
+  </script>
+</body>
+</html>

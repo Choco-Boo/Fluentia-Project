@@ -1,0 +1,235 @@
+.fd-logo {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.fd-btn-dark,
+.fd-btn-light {
+  border-radius: 999px;
+  padding: 13px 22px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.22s ease, box-shadow 0.24s ease, border-color 0.24s ease, background 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.fd-btn-dark {
+  background: linear-gradient(120deg, var(--fd-blue), var(--fd-blue-strong));
+  color: #fff;
+  box-shadow: var(--fd-shadow-pill);
+}
+
+.fd-btn-dark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 20%, rgba(255, 255, 255, 0.35) 50%, transparent 80%);
+  transform: translateX(-120%);
+}
+
+.fd-btn-dark:hover:not(:disabled)::after {
+  animation: fd-sheen 0.8s ease;
+}
+
+.fd-btn-dark:hover:not(:disabled),
+.fd-btn-light:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--fd-shadow-hover);
+}
+
+.fd-btn-light {
+  background: #fff;
+  color: #1d7f67;
+  border: 1px solid #bfe5da;
+  box-shadow: 0 8px 18px rgba(38, 132, 106, 0.18);
+}
+
+@keyframes fd-sheen {
+  from {
+    transform: translateX(-120%);
+  }
+
+  to {
+    transform: translateX(120%);
+  }
+}
+
+.lesson-progress-card,
+.passage-box,
+.match-card,
+.answer-btn,
+.sentence-words,
+.sentence-drop,
+.role-input,
+.microphone-status,
+.feedback,
+.score-chip,
+.lesson-card {
+  border-radius: 22px;
+  border: 1px solid var(--fd-line);
+  background: var(--fd-card);
+  box-shadow: 0 10px 26px rgba(27, 42, 82, 0.08);
+}
+
+.lesson-progress-card {
+  padding: 20px 22px;
+  margin-bottom: 20px;
+}
+
+.progress-label,
+.row-label,
+.question-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--fd-blue);
+  font-weight: 700;
+}
+
+.progress-top-row h3,
+.activity-type {
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+  letter-spacing: -0.02em;
+  color: #12284d;
+}
+
+.progress-top-row h3 {
+  font-size: 1.35rem;
+}
+
+.progress-bar-track {
+  height: 12px;
+  border-radius: 999px;
+  background: #dceee7;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(120deg, var(--fd-blue), var(--fd-blue-strong));
+  transition: width 0.3s ease;
+}
+
+.level-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: #edf3ff;
+  color: #4a63cc;
+  border: 1px solid #d7e5ff;
+}
+
+.level-badge[data-level="intermediate"] {
+  background: #fff7e9;
+  color: #b27a19;
+  border-color: #f7e4b8;
+}
+
+.level-badge[data-level="advanced"] {
+  background: #f7f2ff;
+  color: #7b57d1;
+  border-color: #e8dcff;
+}
+
+.topic-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #eafaf5;
+  color: #239677;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.activity-type {
+  font-size: clamp(1.7rem, 2.8vw, 2.35rem);
+  line-height: 1.08;
+  margin-bottom: 8px;
+}
+
+.activity-meta {
+  color: var(--fd-text-soft);
+  line-height: 1.6;
+  margin-bottom: 18px;
+  font-weight: 500;
+}
+
+.score-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  background: linear-gradient(180deg, #f8fffc, #eefcf7);
+  color: #239677;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.row-label,
+.question-label {
+  margin-bottom: 10px;
+}
+
+.question-text {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #1f3342;
+  margin-bottom: 16px;
+}
+
+.feedback {
+  margin-bottom: 16px;
+  padding: 14px 16px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.feedback.show {
+  opacity: 1;
+}
+
+.feedback.correct-fb {
+  background: var(--fd-green-soft);
+  color: #14876b;
+  border-color: #bdeedc;
+}
+
+.feedback.wrong-fb {
+  background: var(--fd-danger-soft);
+  color: #b64b4b;
+  border-color: #ffd2d2;
+}
+
+.lesson-action-btn {
+  width: 100%;
+  min-height: 52px;
+  font-size: 1rem;
+}
+
+.lesson-action-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.lesson-light-btn {
+  min-height: 52px;
+  font-size: 1rem;
+}

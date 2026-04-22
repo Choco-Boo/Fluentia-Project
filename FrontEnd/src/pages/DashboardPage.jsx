@@ -3,16 +3,18 @@ import { useDashboardData } from '../hooks/useDashboardData';
 import SidebarNav from '../components/dashboard/SidebarNav';
 import ProfileSummaryCard from '../components/dashboard/ProfileSummaryCard';
 import LessonContentTypeCard from '../components/dashboard/LessonContentTypeCard';
-import LessonProgressCard from '../components/dashboard/LessonProgressCard';
 import AchievementsProgressPage from '../components/dashboard/AchievementsProgressPage';
 import UpcomingSessionCard from '../components/dashboard/UpcomingSessionCard';
 import { SectionSkeleton, SectionMessage } from '../components/dashboard/SectionState';
 import AIConversationsPage from './AIConversationsPage';
 import SettingsWorkspace from '../components/dashboard/SettingsWorkspace';
 
+const LEARNING_MODULE_BASE_URL = 'http://127.0.0.1:5501/index.html';
+
 function DashboardPage({ goToLanding, goToOnboarding, initialSection = 'dashboard', onSectionChange }) {
   const [section, setSection] = useState(initialSection);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [learningQuery, setLearningQuery] = useState('');
   const [activeLessonProgress, setActiveLessonProgress] = useState(null);
   const [recentActivity, setRecentActivity] = useState([]);
   const { data, isLoading, error } = useDashboardData();
@@ -37,6 +39,27 @@ function DashboardPage({ goToLanding, goToOnboarding, initialSection = 'dashboar
     if (onSectionChange) {
       onSectionChange(nextSection);
     }
+  }
+
+  function matchesLearningQuery(text) {
+    if (!learningQuery.trim()) return true;
+    return String(text ?? '').toLowerCase().includes(learningQuery.trim().toLowerCase());
+  }
+
+  function getModuleKey(courseModule) {
+    if (courseModule?.moduleKey) return courseModule.moduleKey;
+
+    return String(courseModule?.title ?? '')
+      .toLowerCase()
+      .replace(/&/g, 'and')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+
+  function handleOpenCourseModule(courseModule) {
+    const moduleKey = getModuleKey(courseModule);
+    const targetUrl = `${LEARNING_MODULE_BASE_URL}?module=${encodeURIComponent(moduleKey)}`;
+    window.location.href = targetUrl;
   }
 
   useEffect(() => {
@@ -167,29 +190,35 @@ function DashboardPage({ goToLanding, goToOnboarding, initialSection = 'dashboar
   }
 
   function renderLessons() {
-    const contentTypes = getList(lessons?.contentTypes);
-    const currentLessons = getList(lessons?.current);
-    const recommended = getList(lessons?.recommended);
-    const totalInProgress = currentLessons.length;
-    const avgProgress = totalInProgress
-      ? Math.round(currentLessons.reduce((sum, lesson) => sum + Number(lesson?.progressPercent ?? 0), 0) / totalInProgress)
-      : 0;
+    const contentTypes = getList(lessons?.contentTypes).filter((item) =>
+      matchesLearningQuery(`${item?.title ?? ''} ${item?.detail ?? ''}`)
+    );
+
+    function handleLearningModeOpen(modeId) {
+      if (modeId === 'practice') {
+        handleSectionChange('practice');
+        return;
+      }
+
+      if (modeId === 'courses') {
+        handleSectionChange('courses');
+      }
+    }
 
     return (
       <div className="fd-lessons-page">
         <section className="fd-lessons-hero">
           <div>
             <h2>Lessons</h2>
-            <p>Pick a learning mode, continue active lessons, and keep momentum across your module.</p>
           </div>
           <div className="fd-lessons-hero-stats">
             <article>
-              <small>In progress</small>
-              <strong>{totalInProgress}</strong>
+              <small>Learning modes</small>
+              <strong>2</strong>
             </article>
             <article>
-              <small>Average completion</small>
-              <strong>{avgProgress}%</strong>
+              <small>Path flow</small>
+              <strong>Lessons → Mode</strong>
             </article>
           </div>
         </section>
@@ -199,62 +228,113 @@ function DashboardPage({ goToLanding, goToOnboarding, initialSection = 'dashboar
             <h2>Learning Modes</h2>
           </div>
           {isLoading ? (
-            <SectionSkeleton className="fd-pro-type-grid" count={4} />
+            <SectionSkeleton className="fd-pro-type-grid" count={2} />
           ) : contentTypes.length ? (
             <div className="fd-pro-type-grid">
               {contentTypes.map((item) => (
-                <LessonContentTypeCard key={item.id} item={item} />
+                <LessonContentTypeCard key={item.id} item={item} onAction={() => handleLearningModeOpen(item.id)} />
               ))}
             </div>
           ) : (
             <SectionMessage message="No lesson content available." />
           )}
         </section>
+      </div>
+    );
+  }
 
-        <div className="fd-lessons-lower-grid">
-          <section className="fd-pro-card">
-            <div className="fd-pro-card-head">
-              <h2>Current Lessons</h2>
-            </div>
-            {isLoading ? (
-              <SectionSkeleton className="fd-pro-current-grid" count={3} />
-            ) : currentLessons.length ? (
-              <div className="fd-pro-current-grid">
-                {currentLessons.map((lesson) => (
-                  <LessonProgressCard key={lesson.id} lesson={lesson} />
-                ))}
-              </div>
-            ) : (
-              <SectionMessage message="No lessons in progress." />
-            )}
-          </section>
+  function renderPractice() {
+    const practiceTracks = getList(lessons?.practiceTracks).filter((track) =>
+      matchesLearningQuery(`${track?.title ?? ''} ${track?.detail ?? ''}`)
+    );
 
-          <section className="fd-pro-card">
-            <div className="fd-pro-card-head">
-              <h2>Recommended Next</h2>
+    return (
+      <div className="fd-lessons-page fd-learning-subpage">
+        <section className="fd-lessons-hero">
+          <div>
+            <h2>Practice</h2>
+            <p>Choose a skill and jump into targeted practice for vocabulary, speaking, and reading.</p>
+          </div>
+          <button type="button" className="fd-learning-back-btn" onClick={() => handleSectionChange('lessons')}>
+            Back to Learning Modes
+          </button>
+        </section>
+
+        <section className="fd-pro-card">
+          <div className="fd-pro-card-head">
+            <h2>Practice Areas</h2>
+          </div>
+          {practiceTracks.length ? (
+            <div className="fd-pro-current-grid">
+              {practiceTracks.map((track) => (
+                <article key={track.id} className="fd-pro-current-card">
+                  {track?.image ? (
+                    <div className="fd-pro-card-image-wrap">
+                      <img src={track.image} alt={track?.title ?? 'Practice area'} className="fd-pro-card-image" />
+                    </div>
+                  ) : null}
+                  <h3>{track.title}</h3>
+                  <p>{track.detail}</p>
+                  <button type="button">{track.cta ?? 'Start'}</button>
+                </article>
+              ))}
             </div>
-            {isLoading ? (
-              <SectionSkeleton className="fd-pro-recommend-grid" count={3} />
-            ) : recommended.length ? (
-              <div className="fd-pro-recommend-grid fd-lessons-recommend-list">
-                {recommended.map((lesson) => (
-                  <article key={lesson.id} className="fd-lessons-recommend-item">
-                    {lesson?.image ? (
-                      <div className="fd-lessons-recommend-image-wrap">
-                        <img src={lesson.image} alt={lesson?.title ?? 'Recommended lesson'} className="fd-lessons-recommend-image" />
-                      </div>
-                    ) : null}
-                    <h3>{lesson.title}</h3>
-                    <p>{lesson.detail}</p>
-                    <button type="button">Start</button>
-                  </article>
-                ))}
-              </div>
-            ) : (
-              <SectionMessage message="No recommendations available." />
-            )}
-          </section>
-        </div>
+          ) : (
+            <SectionMessage message="No practice areas available." />
+          )}
+        </section>
+      </div>
+    );
+  }
+
+  function renderCourses() {
+    const courseModules = getList(lessons?.courseModules).filter((module) =>
+      matchesLearningQuery(`${module?.title ?? ''}`)
+    );
+
+    return (
+      <div className="fd-lessons-page fd-learning-subpage">
+        <section className="fd-lessons-hero">
+          <div>
+            <h2>Courses</h2>
+            <p>Browse your modules and continue each lecture path.</p>
+          </div>
+          <button type="button" className="fd-learning-back-btn" onClick={() => handleSectionChange('lessons')}>
+            Back to Learning Modes
+          </button>
+        </section>
+
+        <section className="fd-pro-card">
+          <div className="fd-pro-card-head">
+            <h2>Course Modules</h2>
+          </div>
+          {courseModules.length ? (
+            <div className="fd-pro-current-grid">
+              {courseModules.map((module) => (
+                <article key={module.id} className="fd-pro-current-card">
+                  {module?.image ? (
+                    <div className="fd-pro-card-image-wrap">
+                      <img src={module.image} alt={module?.title ?? 'Course module'} className="fd-pro-card-image" />
+                    </div>
+                  ) : null}
+                  <h3>{module.title}</h3>
+                  <p>{module.lectures ?? 6} lectures</p>
+                  <div className="fd-pro-progress-row">
+                    <div className="fd-pro-progress-bar">
+                      <span style={{ width: `${module?.progressPercent ?? 0}%` }}></span>
+                    </div>
+                    <small>{module?.progressPercent ?? 0}%</small>
+                  </div>
+                  <button type="button" onClick={() => handleOpenCourseModule(module)}>
+                    Open Module
+                  </button>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <SectionMessage message="No course modules available." />
+          )}
+        </section>
       </div>
     );
   }
@@ -277,17 +357,22 @@ function DashboardPage({ goToLanding, goToOnboarding, initialSection = 'dashboar
   const sectionLabel = {
     dashboard: 'Dashboard',
     lessons: 'Lessons',
+    practice: 'Practice',
+    courses: 'Courses',
     achievements: 'Achievements',
     'ai-conversations': 'AI Conversations',
     settings: 'Settings'
   }[section] ?? 'Dashboard';
+
+  const isLearningSection = section === 'lessons' || section === 'practice' || section === 'courses';
+  const sidebarSection = section === 'practice' || section === 'courses' ? 'lessons' : section;
 
   return (
     <div className="fd-site fd-account-site">
       <section className="fd-pro-shell fd-anim fd-anim-1">
         <SidebarNav
           userName={user?.name ?? 'Learner'}
-          section={section}
+          section={sidebarSection}
           setSection={handleSectionChange}
           onLogout={handleLogout}
         />
@@ -297,14 +382,38 @@ function DashboardPage({ goToLanding, goToOnboarding, initialSection = 'dashboar
             <p>{sectionLabel}</p>
             <label className="fd-pro-search">
               <span>⌕</span>
-              <input type="text" placeholder="Search lessons, topics, or skills..." />
+              <input
+                type="text"
+                value={learningQuery}
+                onChange={(event) => setLearningQuery(event.target.value)}
+                placeholder={
+                  isLearningSection
+                    ? 'Search learning modes, practice tracks, or modules...'
+                    : 'Search is active in Lessons, Practice, and Courses...'
+                }
+              />
             </label>
             <div className="fd-pro-top-actions">
               <a href="/onboarding" onClick={(event) => { event.preventDefault(); goToOnboarding(); }}>Update goals</a>
               <button type="button" onClick={() => setIsDarkMode((value) => !value)}>
                 {isDarkMode ? 'Light mode' : 'Dark mode'}
               </button>
-              <button type="button">Notifications</button>
+              {isLearningSection && learningQuery.trim() ? (
+                <button type="button" onClick={() => setLearningQuery('')}>Clear search</button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => handleSectionChange(
+                    section === 'lessons'
+                      ? 'practice'
+                      : section === 'practice'
+                        ? 'courses'
+                        : 'lessons'
+                  )}
+                >
+                  {section === 'lessons' ? 'Open Practice' : section === 'practice' ? 'Open Courses' : 'Back to Lessons'}
+                </button>
+              )}
             </div>
           </header>
 
@@ -318,6 +427,8 @@ function DashboardPage({ goToLanding, goToOnboarding, initialSection = 'dashboar
                 <>
                   {section === 'dashboard' && renderOverview()}
                   {section === 'lessons' && renderLessons()}
+                  {section === 'practice' && renderPractice()}
+                  {section === 'courses' && renderCourses()}
                   {section === 'achievements' && renderAchievements()}
                   {section === 'ai-conversations' && renderAIConversations()}
                   {section === 'settings' && renderSettings()}

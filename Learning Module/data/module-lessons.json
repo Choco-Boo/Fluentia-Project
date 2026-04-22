@@ -1,0 +1,39 @@
+{
+  "modules": {
+    "basic-communication": {
+      "lessonId": "basic-communication-lesson-01",
+      "title": "Basic Communication",
+      "topicTag": "💬 Basic Communication"
+    },
+    "travel": {
+      "lessonId": "travel-lesson-01",
+      "title": "Travel Basics",
+      "topicTag": "✈️ Travel"
+    },
+    "restaurant": {
+      "lessonId": "restaurant-lesson-01",
+      "title": "Restaurant Basics",
+      "topicTag": "🍽️ Restaurant"
+    },
+    "workplace": {
+      "lessonId": "workplace-lesson-01",
+      "title": "Workplace Communication",
+      "topicTag": "💼 Workplace"
+    },
+    "shopping": {
+      "lessonId": "shopping-lesson-01",
+      "title": "Shopping Essentials",
+      "topicTag": "🛍️ Shopping"
+    },
+    "health-emergencies": {
+      "lessonId": "health-emergencies-lesson-01",
+      "title": "Health & Emergencies",
+      "topicTag": "🏥 Health & Emergencies"
+    },
+    "default": {
+      "lessonId": "travel-lesson-01",
+      "title": "Travel Basics",
+      "topicTag": "✈️ Travel"
+    }
+  }
+}

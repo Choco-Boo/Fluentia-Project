@@ -11,6 +11,8 @@ function getRouteFromPath(pathname) {
   if (pathname === '/onboarding') return { page: 'onboarding', section: 'dashboard' };
   if (pathname === '/dashboard') return { page: 'dashboard', section: 'dashboard' };
   if (pathname === '/lessons') return { page: 'dashboard', section: 'lessons' };
+  if (pathname === '/practice') return { page: 'dashboard', section: 'practice' };
+  if (pathname === '/courses') return { page: 'dashboard', section: 'courses' };
   if (pathname === '/achievements') return { page: 'dashboard', section: 'achievements' };
   if (pathname === '/settings') return { page: 'dashboard', section: 'settings' };
   if (pathname === '/ai-conversations') return { page: 'dashboard', section: 'ai-conversations' };
@@ -22,6 +24,8 @@ function getPathFromRoute(page, section) {
   if (page === 'signup') return '/signup';
   if (page === 'onboarding') return '/onboarding';
   if (page === 'dashboard' && section === 'lessons') return '/lessons';
+  if (page === 'dashboard' && section === 'practice') return '/practice';
+  if (page === 'dashboard' && section === 'courses') return '/courses';
   if (page === 'dashboard' && section === 'achievements') return '/achievements';
   if (page === 'dashboard' && section === 'settings') return '/settings';
   if (page === 'dashboard' && section === 'ai-conversations') return '/ai-conversations';
@@ -67,7 +71,7 @@ function App() {
   }
 
   if (route.page === 'onboarding') {
-    return <OnboardingPage goToDashboard={() => navigate('dashboard')} />;
+    return <OnboardingPage goToAssessment={() => { window.location.href = '/assessment/assessment.html'; }} />;
   }
 
   if (route.page === 'dashboard') {

@@ -1,0 +1,15 @@
+{
+  "messages": [
+    { "id": "m1", "from": "ai", "text": "Hi! I am your Fluentia AI tutor. Ready to practice today?" },
+    { "id": "m2", "from": "user", "text": "Yes, let us practice travel conversations." },
+    { "id": "m3", "from": "ai", "text": "Great. Tell me how you would ask for directions to the train station." }
+  ],
+  "suggestedPrompts": ["Practice introductions", "Ask me questions", "Travel roleplay"],
+  "talk": {
+    "idleLabel": "Tap start to practice speaking with AI.",
+    "listeningLabel": "Listening...",
+    "processingLabel": "Processing...",
+    "defaultResponse": "AI response preview appears here after your voice input.",
+    "processingResponse": "AI: Nice sentence structure. Try adding one more detail to sound more natural."
+  }
+}

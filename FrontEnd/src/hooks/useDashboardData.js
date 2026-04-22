@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { mockDashboardData } from '../data/mockDashboardData';
 
+const DASHBOARD_API_URL = '/api/dashboard';
+const DASHBOARD_FALLBACK_URL = '/data/dashboard.json';
+
 export function useDashboardData() {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -14,19 +17,31 @@ export function useDashboardData() {
         setIsLoading(true);
         setError(null);
 
-        // Backend-ready placeholder: replace with API request later.
-        await new Promise((resolve) => setTimeout(resolve, 180));
+        let payload = null;
+        const requests = [DASHBOARD_API_URL, DASHBOARD_FALLBACK_URL];
+
+        for (const url of requests) {
+          try {
+            const response = await fetch(url, { headers: { Accept: 'application/json' } });
+            if (!response.ok) continue;
+            payload = await response.json();
+            break;
+          } catch {
+            // Try next source.
+          }
+        }
 
         if (!isMounted) {
           return;
         }
 
-        setData(mockDashboardData);
+        setData(payload || mockDashboardData);
       } catch (err) {
         if (!isMounted) {
           return;
         }
 
+        setData(mockDashboardData);
         setError(err instanceof Error ? err.message : 'Unable to load dashboard data.');
       } finally {
         if (isMounted) {
