@@ -1,0 +1,232 @@
+.fd-logo {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.fd-btn-dark,
+.fd-btn-light {
+  border-radius: 999px;
+  padding: 13px 22px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: 0.22s ease;
+}
+
+.fd-btn-dark {
+  background: linear-gradient(120deg, var(--fd-blue), var(--fd-blue-strong));
+  color: white;
+  box-shadow: var(--fd-shadow-pill);
+}
+
+.fd-btn-dark:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--fd-shadow-hover);
+}
+
+.fd-btn-light {
+  background: #ffffff;
+  color: var(--fd-text);
+  border: 1px solid var(--fd-line);
+}
+
+.fd-btn-light:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--fd-shadow-soft);
+}
+
+.lesson-progress-card,
+.passage-box,
+.match-card,
+.answer-btn,
+.sentence-words,
+.sentence-drop,
+.role-input,
+.microphone-status,
+.feedback,
+.score-chip,
+.lesson-card {
+  border-radius: 22px;
+  border: 1px solid var(--fd-line);
+  background: var(--fd-card);
+  box-shadow: 0 10px 26px rgba(27, 42, 82, 0.08);
+}
+
+.lesson-progress-card {
+  padding: 22px;
+  margin-bottom: 22px;
+}
+
+.progress-label,
+.row-label,
+.question-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--fd-blue);
+  font-weight: 700;
+}
+
+.progress-top-row h3,
+.activity-type {
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.progress-top-row h3 {
+  font-size: 1.45rem;
+  margin-top: 8px;
+}
+
+.progress-bar-track {
+  height: 12px;
+  border-radius: 999px;
+  background: #e8f1ee;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(120deg, var(--fd-green), var(--fd-blue));
+  transition: width 0.3s ease;
+}
+
+.level-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: #edf3ff;
+  color: var(--fd-blue-strong);
+  border: 1px solid #d7e5ff;
+}
+
+.level-badge[data-level="intermediate"] {
+  background: #fff7e9;
+  color: #b27a19;
+  border-color: #f7e4b8;
+}
+
+.level-badge[data-level="advanced"] {
+  background: #f7f2ff;
+  color: #7b57d1;
+  border-color: #e8dcff;
+}
+
+.icon-back-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  border: 1px solid var(--fd-line);
+  background: #ffffff;
+  color: var(--fd-text);
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: 0.22s ease;
+}
+
+.icon-back-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--fd-shadow-soft);
+}
+
+.topic-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #eafaf5;
+  color: #239677;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.activity-type {
+  font-size: clamp(1.65rem, 2.8vw, 2.3rem);
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+.activity-meta {
+  min-height: 20px;
+  color: var(--fd-text-soft);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.score-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  background: linear-gradient(180deg, #f8fffc, #eefcf7);
+  color: #239677;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.row-label,
+.question-label {
+  margin-bottom: 10px;
+}
+
+.question-text {
+  font-family: "Outfit", sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--fd-text);
+  margin-bottom: 16px;
+}
+
+.feedback {
+  margin-bottom: 16px;
+  padding: 14px 16px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.feedback.show {
+  opacity: 1;
+}
+
+.feedback.correct-fb {
+  background: var(--fd-green-soft);
+  color: #14876b;
+  border-color: #bdeedc;
+}
+
+.feedback.wrong-fb {
+  background: var(--fd-danger-soft);
+  color: #b64b4b;
+  border-color: #ffd2d2;
+}
+
+.lesson-action-btn {
+  width: 100%;
+  min-height: 52px;
+  font-size: 0.98rem;
+}
+
+.lesson-action-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.lesson-light-btn {
+  min-height: 52px;
+  font-size: 0.98rem;
+}

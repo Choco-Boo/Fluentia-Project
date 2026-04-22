@@ -1,0 +1,26 @@
+.microphone-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding: 16px 18px;
+  background: linear-gradient(180deg, #f8fffc, #f3fbf8);
+  color: var(--fd-text-soft);
+}
+
+.mic-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #9fb8b0;
+  transition: 0.3s ease;
+}
+
+.microphone-status.active .mic-indicator {
+  background: #ff6b6b;
+  box-shadow: 0 0 0 6px rgba(255, 107, 107, 0.14);
+}
+
+.microphone-status.active .mic-label {
+  color: #b64b4b;
+}

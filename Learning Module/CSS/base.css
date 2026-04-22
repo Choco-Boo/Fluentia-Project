@@ -1,0 +1,62 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --fd-bg: #eff6f3;
+  --fd-surface: rgba(248, 255, 252, 0.88);
+  --fd-card: #ffffff;
+  --fd-line: #d4e8df;
+  --fd-line-strong: #bdd8cd;
+  --fd-text: #183b35;
+  --fd-text-soft: #5d7d75;
+  --fd-blue: #4d84ff;
+  --fd-blue-strong: #3b6fe2;
+  --fd-green: #2dcd9f;
+  --fd-green-soft: #eafaf5;
+  --fd-purple-soft: #f4efff;
+  --fd-danger-soft: #fff1f1;
+  --fd-warning-soft: #fff7e9;
+  --fd-radius-xl: 28px;
+  --fd-radius-lg: 24px;
+  --fd-radius-md: 18px;
+  --fd-radius-sm: 14px;
+  --fd-shadow-soft: 0 14px 34px rgba(27, 42, 82, 0.08);
+  --fd-shadow-hover: 0 18px 40px rgba(27, 42, 82, 0.12);
+  --fd-shadow-pill: 0 10px 24px rgba(77, 132, 255, 0.28);
+  --fd-focus: 0 0 0 4px rgba(77, 132, 255, 0.16);
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background:
+    radial-gradient(900px 500px at -10% -10%, rgba(45, 205, 159, 0.16) 0%, transparent 60%),
+    radial-gradient(980px 520px at 110% -15%, rgba(217, 140, 244, 0.2) 0%, transparent 62%),
+    var(--fd-bg);
+  color: var(--fd-text);
+  font-family: "Outfit", "Segoe UI", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: none;
+  box-shadow: var(--fd-focus);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
